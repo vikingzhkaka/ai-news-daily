@@ -76,19 +76,31 @@ CSS = """  :root{
   .meta{color:var(--sub);font-size:13px;margin-top:6px}
   .catchup{background:var(--warnbg);border:1px solid #fcd34d;color:var(--warn);
     border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;margin-bottom:20px}
+  /* 顶部要点：唯一的第一眼入口，放大加粗关键词 */
   .takeaways{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
-    border-radius:10px;padding:16px 20px;margin-bottom:26px}
-  .takeaways h2{font-size:15px;color:var(--accent);margin-bottom:10px}
-  .takeaways ul{margin-left:18px;font-size:14px}
-  .takeaways li{margin:6px 0}
+    border-radius:10px;padding:18px 22px;margin-bottom:24px}
+  .takeaways h2{font-size:13px;color:var(--sub);font-weight:600;margin-bottom:10px;
+    text-transform:uppercase;letter-spacing:.5px}
+  .takeaways ul{margin-left:18px;font-size:15px;line-height:1.7}
+  .takeaways li{margin:8px 0}
+  .takeaways li b{color:var(--accent)}
   section{margin-bottom:30px}
   .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  /* 少即是多：维度字母退化为中性灰小标，不再用六色抢眼 */
   .sec-tag{font-size:12px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px}
-  .tag-native{background:var(--a-native)} .tag-trans{background:var(--a-trans)}
-  .tag-emp{background:var(--a-emp)} .tag-counter{background:var(--a-counter)}
-  .tag-trend{background:var(--a-trend)} .tag-imp{background:var(--a-imp)}
-  .tag-vert{background:#475569} .tag-saas{background:#0891b2} .tag-fin{background:#be123c}
-  .sec-head h2{font-size:19px}
+  .dim-key{display:inline-block;font-size:11px;font-weight:700;color:var(--sub);
+    background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-right:10px}
+  .dim-count{margin-left:auto;font-size:11px;color:var(--sub);font-weight:400}
+  /* 折叠维度（默认收起，点击展开） */
+  details.dim{border-bottom:1px solid var(--line);padding:4px 0}
+  details.dim > summary{display:flex;align-items:center;cursor:pointer;list-style:none;
+    font-size:16px;font-weight:600;color:var(--ink);padding:10px 4px;user-select:none}
+  details.dim > summary::-webkit-details-marker{display:none}
+  details.dim > summary:hover{color:var(--accent)}
+  details.dim[open] > summary{color:var(--accent);margin-bottom:14px}
+  details.dim > summary::before{content:"▸";margin-right:8px;color:var(--sub);
+    transition:transform .15s;font-size:12px}
+  details.dim[open] > summary::before{content:"▾"}
   .sub-head{display:flex;align-items:center;gap:8px;margin:18px 0 12px}
   .sub-head h3{font-size:16px;color:var(--ink)}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -106,14 +118,12 @@ CSS = """  :root{
   .pill-war{background:#fef2f2;color:var(--a-counter)}
   .date{display:inline-block;font-size:11px;color:var(--sub);margin:0 0 8px 0}
   .date-unknown{color:#9ca3af;font-style:italic}
-  .group{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:26px;background:#fff}
-  .group-ent{background:#f8fafc}
-  .group-ppl{background:#fafafa}
-  .group-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;
-    border-bottom:2px solid var(--line);padding-bottom:10px}
-  .group-ent .group-head{border-color:#cbd5e1}
-  .group-ppl .group-head{border-color:#e5e7eb}
-  .group-head h2{font-size:17px;font-weight:700;color:var(--ink)}
+  .group{background:transparent;margin-bottom:22px;padding:0}
+  .group-ent{background:transparent}
+  .group-ppl{background:transparent}
+  .group-head{margin-bottom:8px;padding-bottom:6px}
+  .group-head h2{font-size:13px;font-weight:600;color:var(--sub);
+    text-transform:uppercase;letter-spacing:.5px}
   footer{color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:14px;margin-top:10px}"""
 
 
@@ -209,9 +219,9 @@ def render_card_linked(item):
     title = md_bold(item.get("title", ""))
     src = md_bold(item.get("src", ""))
     point = md_bold(item.get("point", ""))
-    # 真实发布时间：优先用 LLM 从检索上下文提取的 published；缺失标"日期未知"
+    # 少即是多：只显示有真实发布时间的，缺失则完全不渲染（不占位噪音）
     pub = (item.get("published") or "").strip()
-    pub_html = f'<span class="date">📅 {md_bold(pub)}</span>' if pub else '<span class="date date-unknown">📅 日期未知</span>'
+    pub_html = f'<span class="date">📅 {md_bold(pub)}</span>' if pub else ""
     return f"""      <div class="card">
         <h3><a href="{url}" target="_blank">{title}</a></h3>
         <span class="src">{src}</span>{pub_html}
@@ -220,14 +230,14 @@ def render_card_linked(item):
 
 
 def render_section(dim, items):
-    tag_cls, title, _group = DIM_META[dim]
+    _tag_cls, title, _group = DIM_META[dim]
     cards = "\n".join(render_card_linked(it) for it in items)
-    return f"""  <section>
-    <div class="sec-head"><span class="sec-tag {tag_cls}">{dim}</span><h2>{title}</h2></div>
+    return f"""  <details class="dim">
+    <summary><span class="dim-key">{dim}</span>{title}<span class="dim-count">{len(items)} 条</span></summary>
     <div class="grid">
 {cards}
     </div>
-  </section>"""
+  </details>"""
 
 
 def render_d_section(items):
@@ -244,12 +254,12 @@ def render_d_section(items):
         <p><b>常识预期：</b>{exp}<br><b>实际发现：</b>{fin}<br><b>启示：</b>{ins}</p>
       </div>""")
     cards = "\n".join(cards)
-    return f"""  <section>
-    <div class="sec-head"><span class="sec-tag tag-counter">D</span><h2>{DIM_META['D'][1]}</h2></div>
+    return f"""  <details class="dim">
+    <summary><span class="dim-key">D</span>{DIM_META['D'][1]}<span class="dim-count">{len(items)} 条</span></summary>
     <div class="grid">
 {cards}
     </div>
-  </section>"""
+  </details>"""
 
 
 def render_f_section(f):
@@ -273,16 +283,17 @@ def render_f_section(f):
         <p>{point}</p>
       </div>""")
     cards = "\n".join(cards)
-    return f"""  <section>
-    <div class="sec-head"><span class="sec-tag tag-imp">F</span><h2>{DIM_META['F'][1]}</h2></div>
+    fcount = len(f.get("inspire", [])) + len(f.get("warn", []))
+    return f"""  <details class="dim">
+    <summary><span class="dim-key">F</span>{DIM_META['F'][1]}<span class="dim-count">{fcount} 条</span></summary>
     <div class="grid">
 {cards}
     </div>
-  </section>"""
+  </details>"""
 
 
 def render_v_section(v1, v2):
-    # V1/V2 已并入企业视角分组，这里只渲染子块，外层由 build_html 的 group 包裹
+    # V1/V2 已并入企业视角分组，作为折叠维度项，外层由 build_html 的 group 包裹
     def sub(tag_cls, tag, title, items):
         cards = "\n".join(render_card_linked(it) for it in items)
         return f"""    <div class="sub-head"><span class="sec-tag {tag_cls}">{tag}</span><h3>{title}</h3></div>
@@ -291,11 +302,13 @@ def render_v_section(v1, v2):
     </div>"""
     s1 = sub("tag-saas", "V1", "SaaS 领域", v1)
     s2 = sub("tag-fin", "V2", "财税垂直领域", v2)
-    return f"""    <div class="sec-head"><span class="sec-tag tag-vert">V</span><h2>垂直领域 AI 动向（SaaS · 财税）</h2></div>
+    return f"""  <details class="dim">
+    <summary><span class="dim-key">V</span>垂直领域 AI 动向（SaaS · 财税）<span class="dim-count">{len(v1)+len(v2)} 条</span></summary>
 
 {s1}
 
-{s2}"""
+{s2}
+  </details>"""
 
 
 def build_html(data, banner):
@@ -308,9 +321,7 @@ def build_html(data, banner):
 
     banner_html = f'  <div class="catchup">{md_bold(banner)}</div>\n' if banner else ""
 
-    meta = (f"生成日期：{date} ｜ 结构：顶部信号 · 企业视角（A/B/V）· 人与组织视角（C/E/D/F）"
-            f"｜ 每条标注真实发布时间（缺失显「日期未知」）"
-            f"｜ 来源：Tavily 检索 + LLM 汇总")
+    meta = (f"生成于 {date} ｜ 每日 09:00 自动更新")
 
     # 顶层分组包裹：按 GROUP_META 顺序，把各维度塞进对应 group
     def build_group(group_key, dim_blocks):
@@ -365,7 +376,7 @@ def build_html(data, banner):
 {groups_html}
 
   <footer>
-    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；发布时间取自来源公开信息，缺失时标「日期未知」。
+    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
   </footer>
 </div>
 </body>
