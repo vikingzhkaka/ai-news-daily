@@ -1,0 +1,40 @@
+name: AI Trend Radar Daily
+
+on:
+  schedule:
+    - cron: "0 1,12 * * *"   # 北京时间 09:00 / 20:00
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install --quiet requests
+      - name: Generate dashboard
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python ai-news-daily/generate.py
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html state.json
+          if git diff --cached --quiet; then
+            echo "no changes, skip commit"
+          else
+            git commit -m "daily: AI trend radar update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
