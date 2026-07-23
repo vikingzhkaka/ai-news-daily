@@ -25,10 +25,11 @@ STATE_FILE = os.path.join(REPO_ROOT, "state.json")
 
 # 注意：GitHub Actions 中"未设置的 secret"会被传成空字符串 "" 而非缺失，
 # 因此用 "or 默认值" 让空值也回落到默认，避免 LLM_BASE 变空导致请求失败。
-TAVILY_KEY = os.environ.get("TAVILY_API_KEY") or ""
-LLM_KEY = os.environ.get("LLM_API_KEY") or ""
-LLM_BASE = (os.environ.get("LLM_BASE_URL") or "https://api.deepseek.com/v1").rstrip("/")
-LLM_MODEL = os.environ.get("LLM_MODEL") or "deepseek-v4-flash"  # v4 系列替代已弃用的 deepseek-chat
+# .strip() 防止用户在 Secrets UI 复制粘贴时带入首尾空白/TAB。
+TAVILY_KEY = (os.environ.get("TAVILY_API_KEY") or "").strip()
+LLM_KEY = (os.environ.get("LLM_API_KEY") or "").strip()
+LLM_BASE = ((os.environ.get("LLM_BASE_URL") or "https://api.deepseek.com/v1").rstrip("/")).strip()
+LLM_MODEL = (os.environ.get("LLM_MODEL") or "deepseek-v4-flash").strip()  # v4 系列替代已弃用的 deepseek-chat
 CATCHUP_HOURS = 14
 
 # 检索维度与查询（每维度多组关键词，覆盖中英文权威来源）
