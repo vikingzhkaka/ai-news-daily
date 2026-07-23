@@ -155,7 +155,9 @@ def call_llm(system_prompt: str, user_prompt: str) -> str:
         json={"model": LLM_MODEL, "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}],
-            "response_format": {"type": "json_object"}, "temperature": 0.7},
+            # 注意：DeepSeek 兼容接口不支持 response_format（会返回 400），
+            # 故不传此参数，改用 system/user prompt 约束输出格式 + parse_json_content 容错。
+            "temperature": 0.7},
         timeout=150)
     r.raise_for_status()
     return r.json()["choices"][0]["message"]["content"]
