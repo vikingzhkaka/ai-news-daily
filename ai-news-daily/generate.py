@@ -42,13 +42,22 @@ SEARCH_QUERIES = {
     "V2": ["财税 AI 大模型 智能财税 应用 2026", "tax AI agent vertical model compliance 2026"],
 }
 
+# 每个维度归属一个大分组（GROUP_META 控制页面顶层结构），tag 类与标题保持原样
 DIM_META = {
-    "A":  ("tag-native",  "AI 原生（AI-Native）"),
-    "B":  ("tag-trans",   "AI 转型（AI Transformation）"),
-    "C":  ("tag-emp",     "企业员工个人如何更有效地利用 AI"),
-    "D":  ("tag-counter", "反直觉思考（Counterintuitive）"),
-    "E":  ("tag-trend",   "新趋势 · 新应用 · 迅速走红的 skills 与实践"),
-    "F":  ("tag-imp",     "对普通行业与普通人的启发与警示"),
+    "A":  ("tag-native",  "AI 原生（AI-Native）",          "enterprise"),
+    "B":  ("tag-trans",   "AI 转型（AI Transformation）",  "enterprise"),
+    "V1": ("tag-saas",    "SaaS 领域",                     "enterprise"),
+    "V2": ("tag-fin",     "财税垂直领域",                  "enterprise"),
+    "C":  ("tag-emp",     "企业员工个人如何更有效地利用 AI", "people"),
+    "E":  ("tag-trend",   "新趋势 · 新应用 · 迅速走红的 skills 与实践", "people"),
+    "D":  ("tag-counter", "反直觉思考（Counterintuitive）", "people"),
+    "F":  ("tag-imp",     "对普通行业与普通人的启发与警示",  "people"),
+}
+
+# 顶层三大分组（顺序即页面顺序）
+GROUP_META = {
+    "enterprise": ("group-ent", "企业视角 · 老板与管理层关心"),
+    "people":     ("group-ppl", "人与组织视角 · 执行层与个人关心"),
 }
 
 CSS = """  :root{
@@ -95,6 +104,16 @@ CSS = """  :root{
   .pill{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:6px;margin-bottom:8px}
   .pill-ins{background:#eef2ff;color:var(--a-imp)}
   .pill-war{background:#fef2f2;color:var(--a-counter)}
+  .date{display:inline-block;font-size:11px;color:var(--sub);margin:0 0 8px 0}
+  .date-unknown{color:#9ca3af;font-style:italic}
+  .group{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:26px;background:#fff}
+  .group-ent{background:#f8fafc}
+  .group-ppl{background:#fafafa}
+  .group-head{display:flex;align-items:center;gap:10px;margin-bottom:16px;
+    border-bottom:2px solid var(--line);padding-bottom:10px}
+  .group-ent .group-head{border-color:#cbd5e1}
+  .group-ppl .group-head{border-color:#e5e7eb}
+  .group-head h2{font-size:17px;font-weight:700;color:var(--ink)}
   footer{color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:14px;margin-top:10px}"""
 
 
@@ -190,15 +209,18 @@ def render_card_linked(item):
     title = md_bold(item.get("title", ""))
     src = md_bold(item.get("src", ""))
     point = md_bold(item.get("point", ""))
+    # 真实发布时间：优先用 LLM 从检索上下文提取的 published；缺失标"日期未知"
+    pub = (item.get("published") or "").strip()
+    pub_html = f'<span class="date">📅 {md_bold(pub)}</span>' if pub else '<span class="date date-unknown">📅 日期未知</span>'
     return f"""      <div class="card">
         <h3><a href="{url}" target="_blank">{title}</a></h3>
-        <span class="src">{src}</span>
+        <span class="src">{src}</span>{pub_html}
         <p>{point}</p>
       </div>"""
 
 
 def render_section(dim, items):
-    tag_cls, title = DIM_META[dim]
+    tag_cls, title, _group = DIM_META[dim]
     cards = "\n".join(render_card_linked(it) for it in items)
     return f"""  <section>
     <div class="sec-head"><span class="sec-tag {tag_cls}">{dim}</span><h2>{title}</h2></div>
@@ -260,6 +282,7 @@ def render_f_section(f):
 
 
 def render_v_section(v1, v2):
+    # V1/V2 已并入企业视角分组，这里只渲染子块，外层由 build_html 的 group 包裹
     def sub(tag_cls, tag, title, items):
         cards = "\n".join(render_card_linked(it) for it in items)
         return f"""    <div class="sub-head"><span class="sec-tag {tag_cls}">{tag}</span><h3>{title}</h3></div>
@@ -268,13 +291,11 @@ def render_v_section(v1, v2):
     </div>"""
     s1 = sub("tag-saas", "V1", "SaaS 领域", v1)
     s2 = sub("tag-fin", "V2", "财税垂直领域", v2)
-    return f"""  <section>
-    <div class="sec-head"><span class="sec-tag tag-vert">V</span><h2>垂直领域 AI 动向（SaaS · 财税）</h2></div>
+    return f"""    <div class="sec-head"><span class="sec-tag tag-vert">V</span><h2>垂直领域 AI 动向（SaaS · 财税）</h2></div>
 
 {s1}
 
-{s2}
-  </section>"""
+{s2}"""
 
 
 def build_html(data, banner):
@@ -283,14 +304,39 @@ def build_html(data, banner):
     highlights = data.get("highlights", [])
     hl_li = "\n".join(f"      <li>{md_bold(h)}</li>" for h in highlights) or "      <li>暂无要点</li>"
     sec = data.get("sections", {})
+    empty = {}  # f-string / 闭包内不能用 {} 字面量，用变量承接默认值
 
     banner_html = f'  <div class="catchup">{md_bold(banner)}</div>\n' if banner else ""
 
-    meta = (f"生成日期：{date} ｜ 六维：AI 原生 · AI 转型 · 员工提效 · 反直觉 · "
-            f"新趋势/走红skills · 启发与警示 ｜ ＋ 垂直领域专区（SaaS · 财税）"
+    meta = (f"生成日期：{date} ｜ 结构：顶部信号 · 企业视角（A/B/V）· 人与组织视角（C/E/D/F）"
+            f"｜ 每条标注真实发布时间（缺失显「日期未知」）"
             f"｜ 来源：Tavily 检索 + LLM 汇总")
 
-    empty = {}  # f-string 内不能用 {} 字面量，用变量承接默认值
+    # 顶层分组包裹：按 GROUP_META 顺序，把各维度塞进对应 group
+    def build_group(group_key, dim_blocks):
+        g_cls, g_title = GROUP_META[group_key]
+        blocks = "\n".join(dim_blocks)
+        return f"""  <div class="group {g_cls}">
+    <div class="group-head"><h2>{g_title}</h2></div>
+{blocks}
+  </div>"""
+
+    ent_blocks = [
+        render_section('A', sec.get('A', [])),
+        render_section('B', sec.get('B', [])),
+        render_v_section(sec.get('V1', []), sec.get('V2', [])),
+    ]
+    ppl_blocks = [
+        render_section('C', sec.get('C', [])),
+        render_section('E', sec.get('E', [])),
+        render_d_section(sec.get('D', [])),
+        render_f_section(sec.get('F', empty)),
+    ]
+    groups_html = "\n".join([
+        build_group('enterprise', ent_blocks),
+        build_group('people', ppl_blocks),
+    ])
+
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -316,22 +362,10 @@ def build_html(data, banner):
     </ul>
   </div>
 
-{render_section('A', sec.get('A', []))}
-
-{render_section('B', sec.get('B', []))}
-
-{render_section('C', sec.get('C', []))}
-
-{render_d_section(sec.get('D', []))}
-
-{render_section('E', sec.get('E', []))}
-
-{render_f_section(sec.get('F', empty))}
-
-{render_v_section(sec.get('V1', []), sec.get('V2', []))}
+{groups_html}
 
   <footer>
-    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源。
+    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；发布时间取自来源公开信息，缺失时标「日期未知」。
   </footer>
 </div>
 </body>
@@ -390,7 +424,7 @@ def main():
         '  "date": "生成日期 YYYY-MM-DD",\n'
         '  "highlights": ["4 条趋势信号，每条含一个加粗关键词"],\n'
         '  "sections": {\n'
-        '    "A": [{"title","url","src","point"} 4-6 条, AI 原生],\n'
+        '    "A": [{"title","url","src","point","published"} 4-6 条, AI 原生],\n'
         '    "B": [同结构 4-6 条, AI 转型],\n'
         '    "C": [同结构 4-6 条, 员工个人提效],\n'
         '    "E": [同结构 4-6 条, 新趋势/走红skills],\n'
@@ -401,9 +435,12 @@ def main():
         "  }\n"
         "}\n"
         "要求：A/B/C/E/V1/V2 的 url 必须来自上下文真实链接，src 写来源名+年份；"
-        "point 为 1-2 句要点，可用 **重点** 强调。D 三栏：常识预期→实际发现（附数据/来源）→启示。"
+        "point 为 1-2 句要点，可用 **重点** 强调。"
+        "published 为来源文章的**真实发布日期**（YYYY-MM-DD 或 YYYY-MM），尽量从检索上下文的标题/摘要/年份推断；"
+        "若上下文无任何日期线索则填 null（不要编造）。"
+        "D 三栏：常识预期→实际发现（附数据/来源）→启示。"
         "F：inspire 给普通行业/普通人落地建议，warn 给风险警示；target 取值如『普通行业』『普通人』。"
-    )
+        )
 
     user = (
         "以下是今日各维度检索到的真实资讯，请据此生成简报 JSON：\n\n" + ctx_text + "\n\n"
