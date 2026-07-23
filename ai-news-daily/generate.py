@@ -23,10 +23,12 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # .../a
 OUT_HTML = os.path.join(REPO_ROOT, "index.html")
 STATE_FILE = os.path.join(REPO_ROOT, "state.json")
 
-TAVILY_KEY = os.environ.get("TAVILY_API_KEY")
-LLM_KEY = os.environ.get("LLM_API_KEY")
-LLM_BASE = os.environ.get("LLM_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
-LLM_MODEL = os.environ.get("LLM_MODEL", "deepseek-chat")
+# 注意：GitHub Actions 中"未设置的 secret"会被传成空字符串 "" 而非缺失，
+# 因此用 "or 默认值" 让空值也回落到默认，避免 LLM_BASE 变空导致请求失败。
+TAVILY_KEY = os.environ.get("TAVILY_API_KEY") or ""
+LLM_KEY = os.environ.get("LLM_API_KEY") or ""
+LLM_BASE = (os.environ.get("LLM_BASE_URL") or "https://api.deepseek.com/v1").rstrip("/")
+LLM_MODEL = os.environ.get("LLM_MODEL") or "deepseek-chat"
 CATCHUP_HOURS = 14
 
 # 检索维度与查询（每维度多组关键词，覆盖中英文权威来源）
