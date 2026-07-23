@@ -273,6 +273,7 @@ def build_html(data, banner):
             f"新趋势/走红skills · 启发与警示 ｜ ＋ 垂直领域专区（SaaS · 财税）"
             f"｜ 来源：Tavily 检索 + LLM 汇总")
 
+    empty = {}  # f-string 内不能用 {} 字面量，用变量承接默认值
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -308,7 +309,7 @@ def build_html(data, banner):
 
 {render_section('E', sec.get('E', []))}
 
-{render_f_section(sec.get('F', {{}}))}
+{render_f_section(sec.get('F', empty))}
 
 {render_v_section(sec.get('V1', []), sec.get('V2', []))}
 
