@@ -150,15 +150,27 @@ def collect_search_context():
 # ---------------- LLM ----------------
 def call_llm(system_prompt: str, user_prompt: str) -> str:
     import requests
-    r = requests.post(f"{LLM_BASE}/chat/completions",
+    url = f"{LLM_BASE}/chat/completions"
+    payload = {"model": LLM_MODEL, "messages": [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt}],
+        # 注意：DeepSeek 兼容接口不支持 response_format（会返回 400），
+        # 故不传此参数，改用 system/user prompt 约束输出格式 + parse_json_content 容错。
+        "temperature": 0.7}
+    log(f"LLM request -> {url}  model={LLM_MODEL}  sys_prompt={len(system_prompt)}ch  user_prompt={len(user_prompt)}ch")
+    r = requests.post(url,
         headers={"Authorization": f"Bearer {LLM_KEY}", "Content-Type": "application/json"},
-        json={"model": LLM_MODEL, "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}],
-            # 注意：DeepSeek 兼容接口不支持 response_format（会返回 400），
-            # 故不传此参数，改用 system/user prompt 约束输出格式 + parse_json_content 容错。
-            "temperature": 0.7},
-        timeout=150)
+        json=payload, timeout=150)
+    if r.status_code >= 400:
+        # 打印服务商返回的具体错误体（不含 key），用于定位 400 原因
+        try:
+            err_body = r.json()
+            # 脱敏：移除可能包含 key 片段的内容
+            err_str = json.dumps(err_body, ensure_ascii=False)[:500]
+        except Exception:
+            err_str = r.text[:500]
+        log(f"LLM HTTP {r.status_code} response body: {err_body}")
+        log(f"LLM_BASE={LLM_BASE}  LLM_MODEL={LLM_MODEL}")
     r.raise_for_status()
     return r.json()["choices"][0]["message"]["content"]
 
