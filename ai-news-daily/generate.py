@@ -8,7 +8,7 @@ AI 趋势雷达 · 每日简报 — 独立生成器（GitHub Actions / macOS lau
   TAVILY_API_KEY  (必填) Tavily 搜索 API key —— 替代 WorkBuddy 的 WebSearch
   LLM_API_KEY     (必填) OpenAI 兼容 LLM key（DeepSeek / OpenAI / Moonshot 等）
   LLM_BASE_URL    (可选) 默认 https://api.deepseek.com/v1
-  LLM_MODEL       (可选) 默认 deepseek-chat
+  LLM_MODEL       (可选) 默认 deepseek-v4-flash（v4 系列，替代已弃用的 deepseek-chat）
 
 流程：Tavily 检索 6 个维度 → 汇总为上下文 → LLM 生成结构化 JSON
       → 本脚本用固定模板（CSS 常量）渲染成 index.html
@@ -28,7 +28,7 @@ STATE_FILE = os.path.join(REPO_ROOT, "state.json")
 TAVILY_KEY = os.environ.get("TAVILY_API_KEY") or ""
 LLM_KEY = os.environ.get("LLM_API_KEY") or ""
 LLM_BASE = (os.environ.get("LLM_BASE_URL") or "https://api.deepseek.com/v1").rstrip("/")
-LLM_MODEL = os.environ.get("LLM_MODEL") or "deepseek-chat"
+LLM_MODEL = os.environ.get("LLM_MODEL") or "deepseek-v4-flash"  # v4 系列替代已弃用的 deepseek-chat
 CATCHUP_HOURS = 14
 
 # 检索维度与查询（每维度多组关键词，覆盖中英文权威来源）
