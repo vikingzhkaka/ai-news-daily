@@ -32,7 +32,10 @@
   .tag-native{background:var(--a-native)} .tag-trans{background:var(--a-trans)}
   .tag-emp{background:var(--a-emp)} .tag-counter{background:var(--a-counter)}
   .tag-trend{background:var(--a-trend)} .tag-imp{background:var(--a-imp)}
+  .tag-vert{background:#475569} .tag-saas{background:#0891b2} .tag-fin{background:#be123c}
   .sec-head h2{font-size:19px}
+  .sub-head{display:flex;align-items:center;gap:8px;margin:18px 0 12px}
+  .sub-head h3{font-size:16px;color:var(--ink)}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:680px){.grid{grid-template-columns:1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;transition:box-shadow .15s}
@@ -53,7 +56,7 @@
 <div class="wrap">
   <header>
     <h1>AI 趋势雷达 · 每日简报</h1>
-    <div class="meta">生成日期：2026-07-23 ｜ 六维：AI 原生 · AI 转型 · 员工提效 · 反直觉 · 新趋势/走红skills · 启发与警示 ｜ 来源：公开网络检索（WebSearch）</div>
+    <div class="meta">生成日期：2026-07-23 ｜ 六维：AI 原生 · AI 转型 · 员工提效 · 反直觉 · 新趋势/走红skills · 启发与警示 ｜ ＋ 垂直领域专区（SaaS · 财税）｜ 来源：公开网络检索（WebSearch）</div>
   </header>
 
   <div class="takeaways">
@@ -259,6 +262,71 @@
         <span class="pill pill-war">警示 · 普通人 / 行业</span>
         <h3>shadow AI 与数据外泄</h3>
         <p>77% 在多工具间切换、外挂式 AI 数据安全不可控。<b>敏感数据勿进公网模型</b>；优先选可管控 / 本地化部署方案，建立企业级 AI 使用基线。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ V. 垂直领域 AI 动向 ============ -->
+  <section>
+    <div class="sec-head"><span class="sec-tag tag-vert">V</span><h2>垂直领域 AI 动向（SaaS · 财税）</h2></div>
+
+    <!-- V1 SaaS 领域 -->
+    <div class="sub-head"><span class="sec-tag tag-saas">V1</span><h3>SaaS 领域</h3></div>
+    <div class="grid">
+      <div class="card">
+        <h3><a href="https://cyclrstage.wpengine.com/resources/ai/7-saas-predictions-for-2026-the-year-ai-native-platforms-go-mainstream" target="_blank">AI-native SaaS 成默认，MCP 成新集成层</a></h3>
+        <span class="src">Cyclr / 2026</span>
+        <p>行业从「SaaS+AI 功能」转向「围绕基础模型架构」；2026 年多数成功 SaaS 将把 "MCP-native" 作为核心能力出货，像 2010s 的 REST、2020s 的 webhook 一样成为标准集成层。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.saas-corner.com/2026/06/saas-news-2026-ai-agents-end-of-seat.html" target="_blank">坐席定价崩塌，按「成果/动作」计费</a></h3>
+        <span class="src">SaaS Corner / 2026-06</span>
+        <p>Salesforce Agentforce FY2026 ARR 达 $800M、单季 29k 单、2.4B agentic work units；Intercom Fin 按 $0.99/解决工单收费。AI-native 应用支出同比 +108%（万人以上企业 +393%）。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.bettercloud.com/monitor/saas-industry/" target="_blank">自主智能体取代 20–30% UI 交互</a></h3>
+        <span class="src">BetterCloud / 2026 年中</span>
+        <p>「agent-first」设计兴起：UI 退化为「你反对 agent 时才去的地方」。IDC 预测 2029 年活跃部署 agent 超 10 亿；Deloitte 估 agentic AI 市场 $8.5B(2026)→$45B(2030)@53% CAGR。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://cyclrstage.wpengine.com/resources/ai/7-saas-predictions-for-2026-the-year-ai-native-platforms-go-mainstream" target="_blank">垂直 SaaS 主导增长，通用 AI 做不了</a></h3>
+        <span class="src">Cyclr / 2026</span>
+        <p>水平市场饱和，下一波赢家在监管重地（临床/能源/税务/法律）与蓝领流程，靠领域模型 + 预制工作流形成通用工具无法复制的壁垒。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.bettercloud.com/monitor/saas-industry/" target="_blank">信任鸿沟：治理成生死线</a></h3>
+        <span class="src">BetterCloud / Deloitte / 2026</span>
+        <p>84% IT 领导者信任 agent，但仅 31% 员工热情；仅 6% 企业完全信任 agent 自主执行核心流程。审计追踪、数据血缘、领域治理成为企业采购胜负手。</p>
+      </div>
+    </div>
+
+    <!-- V2 财税垂直领域 -->
+    <div class="sub-head"><span class="sec-tag tag-fin">V2</span><h3>财税垂直领域</h3></div>
+    <div class="grid">
+      <div class="card">
+        <h3><a href="https://m.cnfin.com/cmjj-lb//zixun/20260614/4426392_1.html" target="_blank">税友 财税 Agentic 2.0：A2A 协同架构</a></h3>
+        <span class="src">中国金融信息网 / 2026-06-14</span>
+        <p>综合准确率 93.56%，1 元 Token 撬动 460 元产业产出，月 Token 成本降 90%；预计 2026 年 AI 驱动营收占亿企赢约 50%。从「数字劳动力」跃迁到「数字组织」。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.toutiao.com/article/7650135485603496489/" target="_blank">垂域大模型 + 工程化体系是王道</a></h3>
+        <span class="src">证券时报 / 今日头条 / 2026-06</span>
+        <p>税友自研「犀友」：200 亿条财税数据、100 万 SFT、300 万票据标注 + Harness 驾驭层。破解通用大模型「幻觉频发、稳定性差、难落地商用」的通病。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://caijing.chinadaily.com.cn/a/202606/03/WS6a1fbda7a310942cc49afcbd.html" target="_blank">数据不出企业：端侧部署破泄密痛点</a></h3>
+        <span class="src">中国日报·财经 / 2026-06-03</span>
+        <p>财能 AI 中心税务风控版端侧部署，核心财税数据 100% 不出企业；200+ 税种场景、2000+ 风险指标、准确率 99.3%——直击「以数治税」时代执行偏差、人才断层、数据泄密三大痛点。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://caijing.chinadaily.com.cn/a/202606/03/WS6a1fbda7a310942cc49afcbd.html" target="_blank">智能审核产业化：1 小时办结、差错率 1–2%</a></h3>
+        <span class="src">中国日报·财经 / 财能AI中心 / 2026-06</span>
+        <p>全自动整单审核覆盖费/应收/应付，按量计费、结果全责兜底；财务从后台记账核算向决策支撑、价值创造、全域风险管控的战略引擎跃迁。</p>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.ai-tax.cn/" target="_blank">监管收紧 + 需求升级驱动行业重构</a></h3>
+        <span class="src">税安科技 ai-tax.cn / 2026</span>
+        <p>金税工程、「以数治税」下，企业所得税汇算、土增清算、研发费加计扣除等场景的 AI 风险扫描成刚需；超 10000 家组织选用智能财税风险平台。</p>
       </div>
     </div>
   </section>
