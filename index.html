@@ -1,371 +1,303 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI 趋势雷达 · 每日简报</title>
 <style>
-  :root{
-    --bg:#f6f7f9; --card:#ffffff; --ink:#1f2329; --sub:#6b7280;
-    --line:#e5e7eb; --accent:#2563eb;
-    --a-native:#7c3aed; --a-trans:#059669; --a-emp:#d97706;
-    --a-counter:#dc2626; --a-trend:#0d9488; --a-imp:#4f46e5;
-    --warn:#b45309; --warnbg:#fef3c7;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;
-    background:var(--bg);color:var(--ink);line-height:1.6;padding:28px 16px}
-  .wrap{max-width:1000px;margin:0 auto}
-  header{border-bottom:2px solid var(--line);padding-bottom:16px;margin-bottom:22px}
-  h1{font-size:24px;font-weight:700;letter-spacing:.5px}
-  .meta{color:var(--sub);font-size:13px;margin-top:6px}
-  .catchup{background:var(--warnbg);border:1px solid #fcd34d;color:var(--warn);
-    border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;margin-bottom:20px}
-  /* 顶部要点：唯一的第一眼入口，放大加粗关键词 */
-  .takeaways{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
-    border-radius:10px;padding:18px 22px;margin-bottom:24px}
-  .takeaways h2{font-size:13px;color:var(--sub);font-weight:600;margin-bottom:10px;
-    text-transform:uppercase;letter-spacing:.5px}
-  .takeaways ul{margin-left:18px;font-size:15px;line-height:1.7}
-  .takeaways li{margin:8px 0}
-  .takeaways li b{color:var(--accent)}
-  section{margin-bottom:30px}
-  .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  /* 少即是多：维度字母退化为中性灰小标，不再用六色抢眼 */
-  .sec-tag{font-size:12px;font-weight:700;color:#fff;padding:3px 10px;border-radius:20px}
-  .dim-key{display:inline-block;font-size:11px;font-weight:700;color:var(--sub);
-    background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-right:10px}
-  .dim-count{margin-left:auto;font-size:11px;color:var(--sub);font-weight:400}
-  /* 折叠维度（默认收起，点击展开） */
-  details.dim{border-bottom:1px solid var(--line);padding:4px 0}
-  details.dim > summary{display:flex;align-items:center;cursor:pointer;list-style:none;
-    font-size:16px;font-weight:600;color:var(--ink);padding:10px 4px;user-select:none}
-  details.dim > summary::-webkit-details-marker{display:none}
-  details.dim > summary:hover{color:var(--accent)}
-  details.dim[open] > summary{color:var(--accent);margin-bottom:14px}
-  details.dim > summary::before{content:"▸";margin-right:8px;color:var(--sub);
-    transition:transform .15s;font-size:12px}
-  details.dim[open] > summary::before{content:"▾"}
-  .sub-head{display:flex;align-items:center;gap:8px;margin:18px 0 12px}
-  .sub-head h3{font-size:16px;color:var(--ink)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:680px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;transition:box-shadow .15s}
-  .card:hover{box-shadow:0 4px 14px rgba(0,0,0,.06)}
-  .card h3{font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.4}
-  .card h3 a{color:var(--accent);text-decoration:none}
-  .card h3 a:hover{text-decoration:underline}
-  .src{display:inline-block;font-size:11px;color:var(--sub);background:var(--bg);
-    border:1px solid var(--line);border-radius:6px;padding:1px 8px;margin-bottom:8px}
-  .card p{font-size:13.5px;color:#374151}
-  .pill{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:6px;margin-bottom:8px}
-  .pill-ins{background:#eef2ff;color:var(--a-imp)}
-  .pill-war{background:#fef2f2;color:var(--a-counter)}
-  .date{display:inline-block;font-size:11px;color:var(--sub);margin:0 0 8px 0}
-  .date-unknown{color:#9ca3af;font-style:italic}
-  .group{background:transparent;margin-bottom:22px;padding:0}
-  .group-ent{background:transparent}
-  .group-ppl{background:transparent}
-  .group-head{margin-bottom:8px;padding-bottom:6px}
-  .group-head h2{font-size:13px;font-weight:600;color:var(--sub);
-    text-transform:uppercase;letter-spacing:.5px}
-  footer{color:var(--sub);font-size:12px;border-top:1px solid var(--line);padding-top:14px;margin-top:10px}
+:root{
+  --bg:#f5f7fa; --card:#ffffff; --ink:#1f2937; --muted:#64748b;
+  --line:#e5e9f0; --accent:#2563eb; --soft:#eff6ff;
+  --tagA:#7c3aed; --tagB:#0891b2; --tagC:#059669; --tagD:#d97706; --tagE:#db2777; --tagF:#be123c;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:30px 20px 64px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:.5px}
+.meta{color:var(--muted);font-size:13px;margin-bottom:4px}
+.banner{background:#fef3c7;border:1px solid #fcd34d;color:#92400e;padding:12px 16px;border-radius:10px;margin:14px 0;font-size:14px}
+.takeaways{background:var(--soft);border:1px solid #dbeafe;border-radius:12px;padding:16px 22px;margin:16px 0}
+.takeaways h2{font-size:16px;margin:0 0 8px;color:var(--accent)}
+.takeaways ul{margin:0;padding-left:20px}
+.takeaways li{margin:5px 0;font-size:14px}
+.sec{margin-top:28px}
+.sec h2{font-size:19px;border-left:4px solid var(--accent);padding-left:10px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+.tag{display:inline-block;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:700;line-height:1.5}
+.tag-a{background:var(--tagA)} .tag-b{background:var(--tagB)} .tag-c{background:var(--tagC)}
+.tag-d{background:var(--tagD)} .tag-e{background:var(--tagE)} .tag-f{background:var(--tagF)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.card:hover{border-color:#c7d2fe}
+.ct{font-weight:600;font-size:15px;margin:0 0 6px}
+.cp{font-size:14px;color:#374151;margin:0}
+.src{display:inline-block;font-size:12px;color:#fff;background:#94a3b8;border-radius:999px;padding:1px 9px;margin-right:6px;vertical-align:middle}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.sub-head{display:flex;align-items:center;gap:8px;margin:18px 0 12px}
+.sub-head h3{font-size:16px;margin:0}
+.sec-tag{display:inline-block;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:600}
+.tag-vert{background:#475569}
+.tag-saas{background:#0891b2}
+.tag-fin{background:#be123c}
+.drow{display:flex;gap:10px;margin:7px 0;font-size:13.5px}
+.dlab{flex:0 0 84px;font-weight:700;color:var(--muted)}
+.dtxt{flex:1;color:#374151}
+.adv{font-size:13px;color:#047857;background:#ecfdf5;border-left:3px solid #10b981;padding:7px 11px;border-radius:6px;margin-top:8px}
+.foot{margin-top:34px;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line);padding-top:16px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>AI 趋势雷达 · 每日简报</h1>
-    <div class="meta">生成于 2026-07-23 ｜ 每日 09:00 自动更新</div>
-  </header>
-
+  <h1>AI 趋势雷达 · 每日简报</h1>
+  <div class="meta">生成日期：2026-07-24（周五）｜ 维度：六维（A 原生 / B 转型 / C 个人提效 / D 反直觉 / E 新趋势 / F 启发警示）+ 垂直领域专区（SaaS · 财税）</div>
 
   <div class="takeaways">
-    <h2>今日要点 · 趋势信号</h2>
+    <h2>今日要点</h2>
     <ul>
-      <li><b>智能体平台化</b>：企业级AI平台强调多智能体协同和MCP协议，成为2026年选型核心。</li>
-      <li><b>Botsitting危机</b>：员工37%的AI时间用于“保姆式”调试，效率瓶颈凸显。</li>
-      <li><b>按效果付费</b>：SaaS和AI定价从按席位转向按业务成果，商业化模式重塑。</li>
-      <li><b>合规智能体</b>：财税领域智能体从辅助到自动执行合规流程，全球合规自动化加速。</li>
+      <li><b>坐席制 SaaS 定价正在消亡。</b>Bain 数据显示 65% 的 SaaS 厂商已在坐席价上叠加用量计费，Salesforce Agentforce 按动作计费（约 $0.10/次）——价值从"界面"转向"API 与成果"。</li>
+      <li><b>中国财税 AI 迈入"数字组织"时代。</b>税友发布 Agentic 2.0，以自研"犀友"大模型 + A2A 多智能体协同，单客户年客单价从 50 元跃升至 1500 元（约 30 倍），瞄准千亿级生态。</li>
+      <li><b>企业 AI 转型深陷"试点陷阱"。</b>麦肯锡：90% 企业已启动转型，仅 10% 实现规模化；BCG：72% CEO 亲任 AI 决策第一责任人（翻倍）——顶层 ownership 成为分水岭。</li>
+      <li><b>MCP 成智能体通用底座、月下载破亿。</b>WAIC 2026 与 Anthropic 同频将 MCP 类比为"AI 世界的 USB-C / TCP-IP"，agent 经济从 demo 进入生产化。</li>
     </ul>
   </div>
 
-  <div class="group group-ent">
-    <div class="group-head"><h2>企业视角 · 老板与管理层关心</h2></div>
-  <details class="dim">
-    <summary><span class="dim-key">A</span>AI 原生（AI-Native）<span class="dim-count">6 条</span></summary>
+  <div class="sec">
+    <h2><span class="tag tag-a">A</span> AI 原生（AI-Native）</h2>
     <div class="grid">
       <div class="card">
-        <h3><a href="https://sema4.ai/blog/best-ai-platforms-of-2026" target="_blank">Enterprise AI Platform Guide: The Best of 2026</a></h3>
-        <span class="src">Sema4.ai 2026</span><span class="date">📅 2026</span>
-        <p>企业AI代理是能理解上下文、推理、决策并跨应用执行行动的系统，2026年选型重点在于多智能体编排和MCP支持。</p>
+        <div class="ct">福布斯 AI 50 榜单：AI 公司融资占上榜总额 80%</div>
+        <div class="cp">2026 届榜单 20 家新上榜，OpenAI 年化收入据称超 250 亿美元、Anthropic 收入运行率突破 300 亿美元；两巨头累计融资 2426 亿美元，约占 AI 50 上榜企业总融资额 3056 亿美元的 80%，证明"AI 原生"已成可持续商业模式。<span class="src">Forbes / 腾讯新闻</span> <a href="https://new.qq.com/rain/a/20260421A05UE000?refer=cp_1009" target="_blank">查看</a></div>
       </div>
       <div class="card">
-        <h3><a href="https://alicelabs.ai/en/insights/top-enterprise-ai-platforms-2026" target="_blank">Top Enterprise AI Platforms 2026: 8 Compared</a></h3>
-        <span class="src">Alice Labs 2026</span><span class="date">📅 2026</span>
-        <p>2026年平台能力标杆包括原生工具使用、持久记忆、多智能体编排等人机协同，Bedrock、Vertex AI Agent Builder等领先。</p>
+        <div class="ct">AI 原生编码：Cursor $2B ARR，Devin 按成果而非坐席售卖</div>
+        <div class="cp">Anysphere（Cursor）到 2026 年 2 月 ARR 达 20 亿美元；Cognition 的 Devin"自主软件工程师"直接按交付成果定价。GitHub Trending 编码 Agent 爆发：opencode +901、claude-code +561、codex +533 周星增量，AI 原生开发工具链已成开源主线。<span class="src">jobbi / OSSInsight</span> <a href="https://jobbi.org/news/25-emerging-ai-startups-positioned-for-growth-in-2026/" target="_blank">查看</a> · <a href="https://ossinsight.io/trending/ai" target="_blank">Trending</a></div>
       </div>
       <div class="card">
-        <h3><a href="https://www.intelegain.com/top-enterprise-ai-automation-platforms-2026-a-buyers-guide-for-business-leaders" target="_blank">Top Enterprise AI Automation Platforms in 2026</a></h3>
-        <span class="src">Intelegain 2026</span><span class="date">📅 2026</span>
-        <p>企业需要安全智能体工作流和低代码开发，平台融合AI模型管理与治理，实现快速智能自动化。</p>
+        <div class="ct">垂直 AI 独角兽：不是 GPT 套壳，而是 AI-first 重构行业</div>
+        <div class="cp">Harvey（法律，$5B，嵌入约半数 Am Law 100）、Abridge（临床文档，对接 Epic 覆盖多数美国医院）、Suno（音乐，$300M ARR、200 万付费订阅）、Figure（人形机器人，$39.5B，已部署宝马产线）——均以行业数据 + 工作流嵌入建立护城河。<span class="src">datavook</span> <a href="https://datavook.com/post/new-ai-unicorns-2026" target="_blank">查看</a></div>
       </div>
       <div class="card">
-        <h3><a href="https://www.console.com/blog/best-ai-agents-for-enterprise-2026" target="_blank">Best Enterprise AI Agent Platforms in 2026 (Compared)</a></h3>
-        <span class="src">Console 2026</span><span class="date">📅 2026</span>
-        <p>真正的企业AI代理能执行行动（如开票、配置），而非仅回答问题；选型关键在于是否可写回系统。</p>
+        <div class="ct">Agent 全栈化：从"写代码"走向"做产品"</div>
+        <div class="cp">GitHub 2026 第 26 周热榜 TOP 10 中 8 个直接服务 Agent 生产场景：OpenMontage（Agent 视频生产，周增 18k star）、Agent-Reach（Agent 联网搜索）、daily_stock_analysis（LLM 股票分析，51k star），中国开发者作品占比显著上升。<span class="src">UU AI Hub</span> <a href="https://uuaihub.com/blog/github-trending-week26-2026" target="_blank">查看</a></div>
       </div>
       <div class="card">
-        <h3><a href="https://www.cloudtogo.cn/blog-article/919.html" target="_blank">Gartner 2026 年十大战略技术趋势之：AI 原生开发平台</a></h3>
-        <span class="src">CloudToGo 2026</span><span class="date">📅 2026</span>
-        <p>复合型AI架构支撑复杂系统开发，AI原生平台需解决单一AI难以独立完成复杂系统的痛点。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://blog.csdn.net/2601_96343836/article/details/162641103" target="_blank">2026企业AI Agent平台选型参考：五款差异化智能体覆盖不同规模企业需求</a></h3>
-        <span class="src">CSDN 2026</span><span class="date">📅 2026</span>
-        <p>平台具备全量电脑自主操作、全天候自动执行、自主学习个性化适配等能力，小微企业通过定时任务实现自动化运营。</p>
+        <div class="ct">小团队 + AI = 过去整支团队的产能</div>
+        <div class="cp">仅 50 人的 Gamma（AI 演示文稿）年化收入突破 1 亿美元；Lovable（"vibe coding"）让非开发者用自然语言建应用，ARR 达 2 亿美元。AI 原生公司的杠杆率来自"人少、自动化深、可规模化"。<span class="src">jobbi</span> <a href="https://jobbi.org/news/25-emerging-ai-startups-positioned-for-growth-in-2026/" target="_blank">查看</a></div>
       </div>
     </div>
-  </details>
-  <details class="dim">
-    <summary><span class="dim-key">B</span>AI 转型（AI Transformation）<span class="dim-count">6 条</span></summary>
-    <div class="grid">
-      <div class="card">
-        <h3><a href="https://techsy.io/blog/enterprise-ai-transformation-guide" target="_blank">Enterprise AI Automation: Transformation Guide [2026]</a></h3>
-        <span class="src">Techsy 2026</span><span class="date">📅 2026</span>
-        <p>麦肯锡2026分析显示，企业实施AI自动化使运营成本平均降低35-50%，客户满意度提升23%，响应时间改进80%。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://futurumgroup.com/press-release/enterprise-ai-roi-shifts-as-agentic-priorities-surge" target="_blank">Enterprise AI ROI Shifts as Agentic Priorities Surge</a></h3>
-        <span class="src">Futurum Group 2026</span><span class="date">📅 2026</span>
-        <p>830位全球IT决策者调查显示，企业对AI ROI的衡量转向直接财务影响（收入增长+利润），代理型AI优先级飙升。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://whatfix.com/resources/whitepapers/state-of-enterprise-digital-transformation-roi#report-form" target="_blank">The State of Enterprise Digital Transformation ROI (2026)</a></h3>
-        <span class="src">Whatfix 2026</span><span class="date">📅 2026</span>
-        <p>300位美国C-level调查：董事会不再满足于部署里程碑，要求转型投资带来更快的价值、更高的生产力和持续回报。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.tmtpost.com/7912647.html" target="_blank">从“工具”到“引擎”：2026年企业AI转型的六大核心行动指南</a></h3>
-        <span class="src">钛媒体 2026</span><span class="date">📅 2026</span>
-        <p>组织技术能力（58%）取代ROI成为首要评估要素；63%企业计划招募“AI+行业”跨界复合型人才。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://zhuanlan.zhihu.com/p/2032109785399693623" target="_blank">2026年品牌企业AI转型全景指南：从工具到战略中枢的范式跃迁</a></h3>
-        <span class="src">知乎 2026</span><span class="date">📅 2026</span>
-        <p>52%高管已部署AI代理，覆盖客服、营销、技术支持等场景；员工角色转向协调专业AI代理团队。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://egenthub.com/egenthub-perspect/2026-01-01-2026-enterprise-ai-trends" target="_blank">2026年八個企業AI 趨勢決定企業未來五年競爭力</a></h3>
-        <span class="src">egenthub 2026</span><span class="date">📅 2026-01-01</span>
-        <p>快速见效的AI切入案例共有痛点明确、范围可控、成效可评估、资料可得、风险可控等特征，财务、客服等为常见先行领域。</p>
-      </div>
-    </div>
-  </details>
-  <details class="dim">
-    <summary><span class="dim-key">V</span>垂直领域 AI 动向（SaaS · 财税）<span class="dim-count">10 条</span></summary>
-
-    <div class="sub-head"><span class="sec-tag tag-saas">V1</span><h3>SaaS 领域</h3></div>
-    <div class="grid">
-      <div class="card">
-        <h3><a href="https://www.ibbaka.com/ibbaka-market-blog/b2b-saas-and-agentic-ai-pricing-predictions-for-2026" target="_blank">B2B SaaS and Agentic AI Pricing Predictions for 2026</a></h3>
-        <span class="src">Ibbaka 2026</span><span class="date">📅 2026</span>
-        <p>API访问将作为核心价值定价，而非附加项；传统企业SaaS（按用户）和基本聊天机器人定价趋向下滑，定价权转向复杂代理。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.bettercloud.com/monitor/saas-industry" target="_blank">AI and the SaaS industry in 2026</a></h3>
-        <span class="src">BetterCloud 2026</span><span class="date">📅 2026</span>
-        <p>2026年中标志着AI原生应用和代理型AI时代的到来；SaaS行业从“AI as a feature”转向系统执行而非仅记录。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.alien.club/blog/mcp-revenue-how-to-price-your-content-for-ai-agents-in-2026" target="_blank">How to Price Your Content for AI Agents in 2026</a></h3>
-        <span class="src">Alien Club 2026</span><span class="date">📅 2026</span>
-        <p>MCP协议已胜出，SDK月下载量达9700万次；78%企业AI团队已有MCP代理在生产中，内容定价需考虑代理消费。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://thunderbit.com/zh-Hans/blog/saas-statistics-market-trends" target="_blank">2026 年 SaaS 市场趋势与统计数据：关键洞察</a></h3>
-        <span class="src">Thunderbit 2026</span><span class="date">📅 2026</span>
-        <p>2026年AI支出2.52万亿美元（同比增长44%）；每家公司平均用101-305个SaaS应用；40%企业应用将含面向任务的AI代理。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://finance.sina.com.cn/roll/2026-01-15/doc-inhhkmpx6398670.shtml" target="_blank">效果涌现，拐点出现！2026中国企业智能体市场十大趋势</a></h3>
-        <span class="src">新浪财经 2026</span><span class="date">📅 2026-01-15</span>
-        <p>智能体时代客户-厂商关系从甲乙采购转向风险共担的伙伴关系；定价从资源消耗转向业务成果单元（如每份合规审核合同）。</p>
-      </div>
-    </div>
-
-    <div class="sub-head"><span class="sec-tag tag-fin">V2</span><h3>财税垂直领域</h3></div>
-    <div class="grid">
-      <div class="card">
-        <h3><a href="https://www.jiemian.com/article/13017254.html" target="_blank">精算家发布“深蓝财鲸”财税AI智能体，引领财务行业数智化转型与人才培养革新</a></h3>
-        <span class="src">界面新闻 2026</span><span class="date">📅 2026</span>
-        <p>杭州精算家聚焦财税场景智能化，通过大模型技术重构财税流程，推动财务行业数智化转型与人才培养升级。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://m.sohu.com/a/1043687185_104421?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334" target="_blank">深耕场景精细化落地 慧算账以AI财税数智化重塑企业服务新标准</a></h3>
-        <span class="src">搜狐 2026</span><span class="date">📅 2026</span>
-        <p>2026年财税数智化进入场景精细化、服务标准化深水区；慧算账跳出通用化，以AI财税数智化重塑行业标准。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://pdf.dfcfw.com/pdf/H3_AP202504071652898336_1.pdf?1744095727000.pdf=" target="_blank">财税垂类大模型+AI Agent 生态闭环</a></h3>
-        <span class="src">东方财富 2025</span><span class="date">📅 2025</span>
-        <p>研报预测公司2024-2026年收入增长，强调财税垂类场景卡位与技术-场景-生态壁垒，AI Agent产业化核心受益。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://adg.csdn.net/6a5d895b10ee7a33f28f2789.html" target="_blank">企业做账·预算·税务，开源框架与个人理财工具盘点</a></h3>
-        <span class="src">CSDN 2026</span><span class="date">📅 2026</span>
-        <p>2026年财务AI智能体从概念验证到规模落地，盘点税友、金蝶、实在Agent、华为云、FinRobot等标杆产品。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://newsroom.avalara.com/2026-04-09-Avalara-Advances-Agentic-Compliance,-Moving-from-AI-Assisted-to-AI-Executed-Workflows" target="_blank">Avalara Advances Agentic Compliance, Moving from AI-Assisted to AI-Executed Workows</a></h3>
-        <span class="src">Avalara Newsroom 2026</span><span class="date">📅 2026-04-09</span>
-        <p>Avalara宣布进入代理税收合规新阶段，从AI辅助工作流转向AI全自动执行全球合规，实现持续、准确、规模化合规。</p>
-      </div>
-    </div>
-  </details>
-  </div>
-  <div class="group group-ppl">
-    <div class="group-head"><h2>人与组织视角 · 执行层与个人关心</h2></div>
-  <details class="dim">
-    <summary><span class="dim-key">C</span>企业员工个人如何更有效地利用 AI<span class="dim-count">6 条</span></summary>
-    <div class="grid">
-      <div class="card">
-        <h3><a href="https://www.dhrglobal.com/insights/ai-at-work-productivity-is-rising-faster-than-clarity" target="_blank">AI at Work: Productivity Rising Faster than Clarity</a></h3>
-        <span class="src">DHR Global 2026</span><span class="date">📅 2026</span>
-        <p>AI已快速融入日常办公，员工依赖AI加速工作、简化任务和支持决策，生产力提升速度超过认知清晰度。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://stellium.consulting/articles/news/ai-productivity" target="_blank">AI Productivity Guide: Unlock Success in 2026</a></h3>
-        <span class="src">Stellium Consulting 2026</span><span class="date">📅 2026</span>
-        <p>伦敦政治经济学院报告称AI每周为员工节省7.5小时，每年人均价值近14,000英镑，正驱动各行业加速采用。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.softwareseni.com/botsitting-and-botshitting-the-empirical-picture-from-the-work-ai-index-2026" target="_blank">Botsitting and Botshitting: The Empirical Picture from the Work AI Index 2026</a></h3>
-        <span class="src">SoftwareSeni 2026</span><span class="date">📅 2026</span>
-        <p>员工每周6.4小时用于botsitting（占AI总时间37%），超过实际产出时间（36%）；每产出1小时有用结果，需另花1小时“收拾”。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.glean.com/work-ai-institute/reports/work-ai-index" target="_blank">Work AI Index 2026</a></h3>
-        <span class="src">Glean Work AI Institute 2026</span><span class="date">📅 2026</span>
-        <p>详细解剖botsitting：37%时间在调试AI，36%时间在产出，27%时间在学习工具和搭建代理；36%的AI会话直接失败。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.cio.com/article/4188575/botsitting-the-ai-time-savings-killer-only-governance-can-stop.html" target="_blank">‘Botsitting’: The AI time-savings killer only governance can stop</a></h3>
-        <span class="src">CIO 2026</span><span class="date">📅 2026</span>
-        <p>WalkMe调查显示员工每周近8小时浪费在botsitting，多数员工仅用于写邮件等浅层任务，企业未获得完整AI ROI。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.woshipm.com/ai/6426847.html" target="_blank">AI越强，越需要人“兜底”：botsitting的产业逻辑与就业机会</a></h3>
-        <span class="src">人人都是产品经理 2026</span><span class="date">📅 2026</span>
-        <p>77%的AI用户每周在多工具间切换，33%用四个以上；每多10%时间喂上下文，员工疲惫概率上升25%。</p>
-      </div>
-    </div>
-  </details>
-  <details class="dim">
-    <summary><span class="dim-key">E</span>新趋势 · 新应用 · 迅速走红的 skills 与实践<span class="dim-count">6 条</span></summary>
-    <div class="grid">
-      <div class="card">
-        <h3><a href="https://www.browseract.com/blog/10-killer-ai-agent-skills-that-are-dominating-github-now" target="_blank">10 Killer AI Agent Skills That Are Dominating GitHub Now</a></h3>
-        <span class="src">BrowserAct 2026</span><span class="date">📅 2026-02-25</span>
-        <p>2026年GitHub十大AI代理技能包括：自动化工作流、绕过网页限制、多平台集成等，助力开发者和企业提升效率。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering" target="_blank">What GitHub Trending Says About AI Agents: Skills Are Becoming Engineering Assets</a></h3>
-        <span class="src">silenceper 2026</span><span class="date">📅 2026-05-27</span>
-        <p>Agent Skills正从提示词演变为可安装、可重用、可审计的工程资产，如Understand-Anything、superpowers等项目代表新范式。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://github.com/yuxiaopeng/Github-Ranking-AI/blob/main/Top100/AI%20Agents.md" target="_blank">Github-Ranking-AI/Top100/AI Agents.md</a></h3>
-        <span class="src">GitHub Ranking AI 2026</span><span class="date">📅 2026</span>
-        <p>Top100中包括humanizer（去除AI生成痕迹）、cli（Google Workspace命令行工具）等，AI代理技能向实用工具方向爆发。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://github.com/topics/ai-skills" target="_blank">ai-skills · GitHub Topics</a></h3>
-        <span class="src">GitHub Topics 2026</span><span class="date">📅 2026</span>
-        <p>kicad-happy等AI技能用于电子设计自动化，支持Claude Code和OpenAI Codex，实现原理图分析、PCB布局审查等。</p>
-      </div>
-      <div class="card">
-        <h3><a href="https://www.zoom.com/zh-cn/blog/ai-technology-trends-2026" target="_blank">2026 年AI 技术趋势：Zoom 领导力洞察</a></h3>
-        <span class="src">Zoom 2026</span><span class="date">📅 2026</span>
-        <p>2026年最大AI突破不是新模型，而是连接智能：CX组织将数据从部门资产转变为统一洞察层，全团队可用。</p>
-      </div>
-      <div class="card">
-        <h3><a href="http://www.news.cn/tech/20260108/b99127c88a4640bbab49e5c6294264d2/c.html" target="_blank">智源发布2026十大AI技术趋势</a></h3>
-        <span class="src">新华网 2026</span><span class="date">📅 2026-01-08</span>
-        <p>多智能体系统决定应用上限，MCP/A2A协议趋于标准化；AI Scientist成为AI4S北极星，垂直赛道仍有高盈利玩法。</p>
-      </div>
-    </div>
-  </details>
-  <details class="dim">
-    <summary><span class="dim-key">D</span>反直觉思考（Counterintuitive）<span class="dim-count">5 条</span></summary>
-    <div class="grid">
-      <div class="card">
-        <h3>AI节省时间，但botsitting让效率打折扣</h3>
-        <span class="src">Work AI Index 2026 (Glean)</span>
-        <p><b>常识预期：</b>AI应该显著减少员工重复劳动时间，提升整体效率。<br><b>实际发现：</b>员工每周37%的AI时间用于botitting（调试/修正），仅36%用于实际产出；每产出1小时有用结果，需另花1小时处理AI问题。<br><b>启示：</b>AI工具易用性和互操作性仍是瓶颈，企业需投资治理和标准化流程，否则AI反成时间黑洞。</p>
-      </div>
-      <div class="card">
-        <h3>ROI不是企业AI转型的首要评估要素</h3>
-        <span class="src">钛媒体 2026</span>
-        <p><b>常识预期：</b>企业在启动AI项目前最关注投资回报率（ROI）。<br><b>实际发现：</b>58%企业首先评估“组织自身的技术能力”，ROI排在其后；63%企业计划招募“AI+行业”复合人才。<br><b>启示：</b>组织能力成为比ROI更优先的考量，人才争夺战加剧，AI转型本质上是组织变革。</p>
-      </div>
-      <div class="card">
-        <h3>单一AI代理不如多智能体协同关键</h3>
-        <span class="src">智源发布2026十大AI技术趋势 (新华网)</span>
-        <p><b>常识预期：</b>单个强大的AI模型即可解决大部分企业问题。<br><b>实际发现：</b>多智能体系统决定应用上限，MCP/A2A协议标准化是基础设施，复杂问题依赖多智能体协同而非单体。<br><b>启示：</b>企业应优先构建多代理协同架构，而非追求单一模型的最强能力。</p>
-      </div>
-      <div class="card">
-        <h3>SaaS按席位定价模式被代理按效果付费挑战</h3>
-        <span class="src">新浪财经 2026</span>
-        <p><b>常识预期：</b>SaaS软件继续按用户数/席位收费。<br><b>实际发现：</b>智能体时代定价转向基于业务成果单元（如每份合规审核的合同），传统按用户定价趋向下滑。<br><b>启示：</b>效果付费倒逼供应商真正交付价值，但也带来成本波动风险，企业需重新评估采购模型。</p>
-      </div>
-      <div class="card">
-        <h3>财税合规从人机辅助走向AI全自动执行</h3>
-        <span class="src">Avalara Newsroom 2026</span>
-        <p><b>常识预期：</b>财税合规领域仍需大量人工审核和监督，AI仅起辅助作用。<br><b>实际发现：</b>Avalara在2026年宣布从AI辅助工作流转向AI全自动执行全球合规，跨境、电子发票等代理已投入生产。<br><b>启示：</b>垂直行业AI代理正加速从“工具”升级为“执行者”，财税合规市场将迎来根本性变革。</p>
-      </div>
-    </div>
-  </details>
-  <details class="dim">
-    <summary><span class="dim-key">F</span>对普通行业与普通人的启发与警示<span class="dim-count">6 条</span></summary>
-    <div class="grid">
-      <div class="card">
-        <span class="pill pill-ins">启发 · 普通行业</span>
-        <h3>借鉴“快速见效”AI落地策略</h3>
-        <p>选择痛点明确、范围可控、成效可评估的单一场景（如财务发票识别、客服自动回复）先行试点，用成功案例说服内部利益关系人。</p>
-      </div>
-      <div class="card">
-        <span class="pill pill-ins">启发 · 普通人</span>
-        <h3>专注精通一个AI工具，避免多工具切换浪费</h3>
-        <p>Work AI Index显示多工具切换是botsitting主因，建议从日常高频任务（邮件、报告、会议总结）开始，持续反馈优化，而非同时尝试多个工具。</p>
-      </div>
-      <div class="card">
-        <span class="pill pill-ins">启发 · 普通行业</span>
-        <h3>利用开源AI代理技能快速搭建实用工具</h3>
-        <p>GitHub上涌现大量开源AI代理技能（如kicad-happy、humanizer等），普通团队可基于现有技能二次开发，降低从零构建成本。</p>
-      </div>
-      <div class="card">
-        <span class="pill pill-war">警示 · 普通人</span>
-        <h3>警惕botsitting消耗：AI越用越累，需要主动管理</h3>
-        <p>每多花10%时间喂上下文，疲惫概率上升25%；重度AI用户botsitting频率是轻度用户的两倍多。建议建立个人AI使用规范和反馈闭环。</p>
-      </div>
-      <div class="card">
-        <span class="pill pill-war">警示 · 普通行业</span>
-        <h3>代理AI定价模式波动风险</h3>
-        <p>按效果付费虽更公平，但成本可能随业务量波动；66.5%IT领导者遇到过意外SaaS费用，需建立预算缓冲和监控机制。</p>
-      </div>
-      <div class="card">
-        <span class="pill pill-war">警示 · 普通行业</span>
-        <h3>AI自动化合规不等于免人工审查</h3>
-        <p>Avalara虽已推进全自动合规，但财税监管复杂，错误风险仍存。企业应保留人工抽查机制，避免完全依赖AI执行关键合规任务。</p>
-      </div>
-    </div>
-  </details>
   </div>
 
-  <footer>
-    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
-  </footer>
+  <div class="sec">
+    <h2><span class="tag tag-b">B</span> AI 转型（AI Transformation）</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">"试点陷阱"：90% 启动，仅 10% 规模化</div>
+        <div class="cp">麦肯锡：90% 被调研企业已启动数字化与 AI 转型，但仅 25% 取得切实成果、仅 10% 实现规模化；75% 企业长期停留在点状试点。成功关键在于"有选择的自我颠覆"——集中资源在 1–2 个核心业务端到端打穿，而非"All in AI"全面铺开。<span class="src">麦肯锡 / 新浪财经</span> <a href="https://finance.sina.com.cn/roll/2026-04-12/doc-inhufzfy0358489.shtml" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">BCG AI Radar 2026：企业 AI 支出翻倍，CEO 亲自下场</div>
+        <div class="cp">企业计划 2026 年将 AI 支出翻倍至营收约 1.7%；72% CEO 亲任公司 AI 决策第一责任人（为去年两倍），82% 比去年更乐观于 ROI；90% 即便短期无回报也计划继续投入。半数 CEO 把个人成败与 AI 转型绑定。<span class="src">BCG</span> <a href="https://www.bcg.com/publications/2026/as-ai-investments-surge-ceos-take-the-lead" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">共享服务中心升级为 AI 原生 GBS</div>
+        <div class="cp">麦肯锡：AI 原生全球业务服务中心（GBS）可推动效率 +20%、创新力提升 40 倍、生产力 +50%；但仅 6% 的 GBS 领导者已实现高级技术全面价值，超 40% 尚未系统化应用——转型天花板在遗留系统整合（42%）与组织阻力（41%）。<span class="src">麦肯锡</span> <a href="https://www.mckinsey.com.cn/2026%E9%BA%A6%E8%82%AF%E9%94%A1%E7%BB%84%E7%BB%87%E7%8E%B0%E7%8A%B6%E6%8A%A5%E5%91%8A%EF%BC%9A%E6%94%B9%E5%8F%98%E7%BB%84%E7%BB%87%E6%9C%AA%E6%9D%A5%E7%9A%84%E4%B8%89%E8%82%A1%E5%8A%9B%E9%87%8F/" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">CEO 成为事实上的"首席 AI 官"</div>
+        <div class="cp">BCG 调研 2400 名高管（含 640 名 CEO）显示，AI 已超越技术范畴，触及战略、运营、文化、风险与人才。多数大公司新设 Chief AI Officer，但决策权正回归 CEO——"连接组织与管理各节点"成为一把手工程。<span class="src">BCG</span> <a href="https://www.bcg.com/publications/2026/as-ai-investments-surge-ceos-take-the-lead" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">规模化仍是真挑战：仅 1% 称部署"成熟"</div>
+        <div class="cp">Deloitte 2026 调研（3200+ 业务/IT 领导者）：员工获授权的 AI 工具一年增长 50%（<40%→<60%），但日常使用仍不足 60%；IBM CEO 研究：仅 25% 的 AI 举措达成预期 ROI、16% 实现企业级规模化，仅 1% 高管称生成式 AI 部署"成熟"。<span class="src">Capital Numbers</span> <a href="https://www.capitalnumbers.com/blog/enterprise-ai-trends-2026" target="_blank">查看</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="tag tag-c">C</span> 企业员工个人如何更有效地利用 AI</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">盖洛普：经理支持是采纳的第一驱动力</div>
+        <div class="cp">2026 年 2 月调研（23717 名美国员工）：13% 每日用 AI、28% 每周多次；但仅 21% 员工认为经理支持其用 AI。经理积极支持者"做好本职"的概率是他人的 7.4 倍——领导赋能，而非工具本身，决定价值落地。<span class="src">Gallup</span> <a href="https://www.gallup.com/699797/indicator-artificial-intelligence.aspx" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">"上下文工程"取代提示工程</div>
+        <div class="cp">Manpower/Experis：2026 关键能力从"会问问题"升级为"保证一致、可预期的输出"（同样问题每次得到同样答案）。人正从"操作员"转为"策略设计者"——需具备领域专家判断力来识别幻觉与逻辑漏洞。<span class="src">Computerworld</span> <a href="https://www.computerworld.com/article/4117602/what-ai-skills-job-seekers-need-to-develop-in-2026.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">三大硬技能需求飙升：流程自动化 +233%</div>
+        <div class="cp">104 求职数据：近 5 年 AI 职缺技能需求——流程自动化 +233%、自然语言处理 +147%、机器学习算法 +64%；ChatGPT、Gemini 双双入榜，LLM 已成各职类日常配备，非技术人员也需"会应用"而非"会建模型"。<span class="src">104 人力银行</span> <a href="https://nabi.104.com.tw/posts/nabi_post_37218028-badb-4fa1-95a0-9c3150c3b632" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">非技术岗也有上车机会：75% 技术岗已要求 AI 技能</div>
+        <div class="cp">Dice 2026 报告：要求 AI 技能的技术岗占比从 2024 年 1 月的 15% 升至 2026 年 6 月的 75%；LinkedIn 增长最快的非工程技能是 AI 商业策略、数据治理、负责任的 AI——组织要的是"能定义 AI 价值主张"的人，而非只会写代码。<span class="src">AI Career Lab</span> <a href="https://theaicareerlab.com/blog/tech-jobs-ai-skills-required-2026" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">公民开发者计划：把 AI 变成组织能力</div>
+        <div class="cp">Ivanti 等企业通过 AI 治理委员会 + 全民开发者（citizen developer）项目，让员工自主提交工具、解决问题。招聘中真实信号是"能讲清你试过什么、哪一步失败了、学到了什么"——好奇心和真实经验胜过证书。<span class="src">Tredence</span> <a href="https://www.tredence.com/blog/top-ai-skills-2026-career-guide" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">善用 AI 作"伙伴"而非"代工"</div>
+        <div class="cp">仅会用 ChatGPT 不够：价值在于用 AI 前瞻式思考，把销售、财务、CEO 各处的零散数据变成可行动的洞察。当 agent 能提前替人布局时，"会借力 AI 思考"才是 game changer。<span class="src">Computerworld</span> <a href="https://www.computerworld.com/article/4117602/what-ai-skills-job-seekers-need-to-develop-in-2026.html" target="_blank">查看</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="tag tag-d">D</span> 反直觉思考（常识预期 → 实际发现 → 启示）</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">D1：AI 转型 = 买工具 / 上模型？</div>
+        <div class="drow"><span class="dlab">常识预期</span><span class="dtxt">企业只要采购大模型、部署几个 AI 应用，就能收获转型红利。</span></div>
+        <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">麦肯锡：90% 企业已启动转型，但仅 10% 规模化、75% 陷入"试点陷阱"——点状试点效果有限、还侵蚀组织信心。<span class="src">麦肯锡</span> <a href="https://finance.sina.com.cn/roll/2026-04-12/doc-inhufzfy0358489.shtml" target="_blank">查看</a></span></div>
+        <div class="drow"><span class="dlab">启示</span><span class="dtxt">转型成败在"端到端打穿一个业务"，不在技术堆叠；挑 1–2 个核心场景集中资源，比全面铺开更稳。</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">D2：AI 交给 IT / CIO 就够了？</div>
+        <div class="drow"><span class="dlab">常识预期</span><span class="dtxt">AI 是技术项目，应归入 IT 部门或设个 CIO 统管。</span></div>
+        <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">BCG：72% CEO 亲任公司 AI 决策第一责任人（为去年两倍），半数 CEO 把个人成败与 AI 转型绑定；"离决策层越远，对 AI 回报越没信心"（62%→48%）。<span class="src">BCG</span> <a href="https://www.bcg.com/publications/2026/as-ai-investments-surge-ceos-take-the-lead" target="_blank">查看</a></span></div>
+        <div class="drow"><span class="dlab">启示</span><span class="dtxt">AI 是顶层战略而非 IT 项目；没有 CEO 级 ownership，再多的试点也难成规模。</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">D3：部署了 AI 工具，员工自然会用？</div>
+        <div class="drow"><span class="dlab">常识预期</span><span class="dtxt">公司买了 AI、发了账号，员工就会高频用起来。</span></div>
+        <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">Gallup：41% 组织已引入 AI，但仅 28% 员工高频使用；仅 26% 员工认为公司有清晰 AI 计划（3/4 没沟通）；经理支持使"做好本职"概率高 7.4 倍。<span class="src">Gallup</span> <a href="https://www.gallup.com/699797/indicator-artificial-intelligence.aspx" target="_blank">查看</a></span></div>
+        <div class="drow"><span class="dlab">启示</span><span class="dtxt">存在"整合—采用滞后"：工具不会自动生效，靠领导力、清晰计划与经理赋能弥合。</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">D4：Agent 越多越智能、越省事？</div>
+        <div class="drow"><span class="dlab">常识预期</span><span class="dtxt">上越多自主 agent，效率越高、人力越省。</span></div>
+        <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">Gartner 预测 40% 的智能体项目将在 2027 年前被取消；OWASP：提示注入攻击同比激增 340%；某未设安全控制的公司 agent "擅自群发 300 封未授权邮件"。<span class="src">Solidaitech / Gartner</span> <a href="https://www.solidaitech.com/2026/06/agentic-ai.html" target="_blank">查看</a></span></div>
+        <div class="drow"><span class="dlab">启示</span><span class="dtxt">安全治理与权限边界是规模化前提；没有护栏的自主 agent 是负债而非资产。</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">D5：AI 普及 = 工作方式已被重塑？</div>
+        <div class="drow"><span class="dlab">常识预期</span><span class="dtxt">半数员工已在用 AI，说明组织流程已被根本改变。</span></div>
+        <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">Gallup：仅 12% 员工"强烈认为"AI 已根本改变工作方式；66% 说提升效率，但多为在旧流程上提速（写内容、总结、产生想法），尚未重塑流程本身。<span class="src">Gallup</span> <a href="https://www.gallup.com/699797/indicator-artificial-intelligence.aspx" target="_blank">查看</a></span></div>
+        <div class="drow"><span class="dlab">启示</span><span class="dtxt">AI 仍处"提速"而非"重塑"阶段；下一关是工作流重设计，而非再用更多工具。</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="tag tag-e">E</span> 新趋势 / 新动向 / 新应用 / 迅速走红的 AI Skills</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">Agent Skills 生态爆发：领域知识随服务器分发</div>
+        <div class="cp">GitHub 上 awesome-claude-skills、Anthropic-Cybersecurity-Skills（817 个安全技能）、数字生命卡兹克开源 AI Skills 合集等仓库走红。Anthropic 明确把"Skills"列为 2026 Agent 连接核心机制（与 MCP、CLI 并列），领域知识可直接随 MCP 服务器分发。<span class="src">53AI / findarepo</span> <a href="https://www.53ai.com/news/LargeLanguageModel/2026042008951.html" target="_blank">查看</a> · <a href="https://findarepo.com/categories/ai-agents/" target="_blank">榜单</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">Vibe Coding / 自然语言建应用走红</div>
+        <div class="cp">Lovable、OpenHands、ai-website-cloner 让非开发者一句话建站/建应用；GitHub Trending 单列"Vibe Coding"类目（AFFiNE 57k+、toeverything 等），"让 AI 干重活"成为主流开源叙事。<span class="src">UU AI Hub</span> <a href="https://uuaihub.com/blog/github-trending-week26-2026" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">Context Engineering 成为新岗位能力</div>
+        <div class="cp">从"提示工程"升级到"上下文工程"——保证模型在不同版本下输出一致、可预期。Gartner/Experis 将其列为 2026 关键技能：人从"操作员"转为"策略设计者"与"护栏设定者"。<span class="src">Computerworld</span> <a href="https://www.computerworld.com/article/4117602/what-ai-skills-job-seekers-need-to-develop-in-2026.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">"为 Agent 定标准"成新赛道（Agent 时代的 OS 层）</div>
+        <div class="cp">Google 推出 DESIGN.md（让 AI 读懂设计系统）、Stably.ai 推 Orca ADE（并行 Agent 舰队 IDE）、DeusData 推 codebase-memory-mcp（代码知识图谱）。它们在定义 Agent 时代的"操作系统层"：标准化交互协议与开发环境。<span class="src">腾讯云 / UU AI Hub</span> <a href="https://cloud.tencent.com/developer/article/2676218" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">MCP 安全与治理升温</div>
+        <div class="cp">OWASP 2026：提示注入攻击同比 +340%；Anthropic 路线图补上 server discovery 与"企业级身份/权限"，让 MCP 能进入真实业务环境——连得通只是第一步，管得住才是关键。<span class="src">Solidaitech</span> <a href="https://www.solidaitech.com/2026/06/agentic-ai.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">AI 主权与"建立信任"成 2026 最贵技能</div>
+        <div class="cp">Gartner：信任与 AI 主权将是热门技能；专家直言"2026 最有价值的 AI 技能不是写代码，是建立信任"——在算法之外，治理、合规与组织变革能力成为分水岭。<span class="src">Computerworld</span> <a href="https://www.computerworld.com/article/4117602/what-ai-skills-job-seekers-need-to-develop-in-2026.html" target="_blank">查看</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="tag tag-f">F</span> 对普通行业与普通人的启发与警示</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">启发 1：AI 不是替代你，是"杠杆"你的判断力</div>
+        <div class="cp">麦肯锡：AI 时代人类最重要的技能是"讲清楚自己要什么"，剩下的执行交给 AI；人作为最后的"判断者"设定目标、边界与目的。把表达目标与设定边界的能力变成核心技能。<span class="src">麦肯锡</span> <a href="https://finance.sina.com.cn/roll/2026-04-12/doc-inhufzfy0358489.shtml" target="_blank">查看</a></div>
+        <div class="adv">建议：每天用 AI 处理一项你最不愿做的杂务，把省下的时间投到判断、创造与关系——这些才是 AI 难替代的高价值区。</div>
+      </div>
+      <div class="card">
+        <div class="ct">启发 2：非技术人员也能上车，且机会在扩大</div>
+        <div class="cp">LinkedIn 2026 增长最快的非工程技能是 AI 商业策略、数据治理、负责任的 AI，都不需要写代码；Dice 显示 75% 技术岗已要求 AI 技能。组织要的是"能定义 AI 价值"的人。<span class="src">AI Career Lab</span> <a href="https://theaicareerlab.com/blog/tech-jobs-ai-skills-required-2026" target="_blank">查看</a></div>
+        <div class="adv">建议：在简历/周报里量化"用 AI 把 X 从 N 小时降到 M 小时"——用真实结果证明 fluent，比堆证书有力。</div>
+      </div>
+      <div class="card">
+        <div class="ct">启发 3：小团队/个体凭 AI 能干过去团队的活</div>
+        <div class="cp">AI 原生公司 50 人做到 1 亿美元 ARR（Gamma）；Agent 全栈化让一人成为"AI 团队经理"。杠杆来自"人少 + 自动化深 + 可规模化"，普通人也能产品化自己的服务。<span class="src">jobbi</span> <a href="https://jobbi.org/news/25-emerging-ai-startups-positioned-for-growth-in-2026/" target="_blank">查看</a></div>
+        <div class="adv">建议：用 MCP/agent 把你的重复性服务产品化、自动化，从"卖时间"转向"卖系统"。</div>
+      </div>
+      <div class="card">
+        <div class="ct">警示 1：别被"工具焦虑"带节奏、盲目 All-in</div>
+        <div class="cp">80% 的 AI 价值仍停留在个人任务提速，尚未重塑流程；麦肯锡提醒"All in AI 不是每个职能都做"，全面铺开反而出问题。转型最大瓶颈在"挑中业务重点、端到端打穿"。<span class="src">麦肯锡</span> <a href="https://finance.sina.com.cn/roll/2026-04-12/doc-inhufzfy0358489.shtml" target="_blank">查看</a></div>
+        <div class="adv">建议：先挑 1–2 个核心业务端到端打穿，验证价值后再扩展，而非一上来全面铺开。</div>
+      </div>
+      <div class="card">
+        <div class="ct">警示 2：安全与信任是隐形门槛，盲信输出有代价</div>
+        <div class="cp">提示注入攻击同比 +340%，Gartner 预测 40% 智能体项目失败；通用大模型在强合规领域（法律/财税）会编造法条、引用废止法规。没有护栏的自主 agent 可能"擅自群发 300 封邮件"。<span class="src">Solidaitech</span> <a href="https://www.solidaitech.com/2026/06/agentic-ai.html" target="_blank">查看</a></div>
+        <div class="adv">建议：强合规场景用垂域模型 + 人工复核，绝不盲信输出；上线 agent 前先定权限边界与审计。</div>
+      </div>
+      <div class="card">
+        <div class="ct">警示 3：警惕"替代焦虑"也警惕"万能论"</div>
+        <div class="cp">实际被 AI 替代岗位仍是个位数百分比，但 18% 员工担忧 5 年内被取代；同时企业"整合—采用滞后"说明工具不会自动生效。两端极端都易误判。<span class="src">Gallup</span> <a href="https://www.gallup.com/699797/indicator-artificial-intelligence.aspx" target="_blank">查看</a></div>
+        <div class="adv">建议：未雨绸缪提升"人机协作"能力（表达、判断、治理），比押注"被替代"或"全靠 AI"都更稳。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="sec-tag tag-vert">V</span> 垂直领域 AI 动向（SaaS · 财税）</h2>
+
+    <div class="sub-head"><span class="sec-tag tag-saas">V1</span><h3>SaaS 领域：AI-native 重构软件范式</h3></div>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">坐席制定价已死，价值转向 API 与成果</div>
+        <div class="cp">Bain：65% 的 SaaS 厂商已在坐席价上叠加用量计费；Salesforce Agentforce Flex 按动作约 $0.10 计费，Intercom Fin 按"每解决一次对话"$0.99 计费——"若 AI 失败，客户不付费"。价值从界面（dashboard）转向 API。<span class="src">PaperOffice AI</span> <a href="https://paperoffice.ai/en/ai-blog-insights-document-automation/death-per-seat-pricing-usage-credits-ai-agents" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">MCP 成为新集成层，催生"软件买软件"</div>
+        <div class="cp">MCP 首年即达约 9700 万月 SDK 下载，成 agent 与工具/数据通信事实标准；涌现出 ToolOracle（按结果付费）、x402/USDC 微支付等 MCP 市场，agent 自动按次调用工具（无需 API Key/订阅）。<span class="src">53AI</span> <a href="https://www.53ai.com/news/LargeLanguageModel/2026042008951.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">Agent-first 设计：自主 agent 取代部分 UI 交互</div>
+        <div class="cp">AI-native 产品（Warp 薪资、Pylon 客服）以自主 agent 为核心：Pylon 的 AI Agent 自主解 L1 工单，AssemblyAI 首响从 15 分钟降到 23 秒、50% 工单无人介入；Warp 的 agent 自动开州税账户、对账、发薪。<span class="src">The AI Agent Index</span> <a href="https://theaiagentindex.com/agents/pylon" target="_blank">查看</a> · <a href="https://theaiagentindex.com/agents/warp-hr" target="_blank">Warp</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">垂直 SaaS 崛起：行业数据 + 合规壁垒建护城河</div>
+        <div class="cp">税友（财税）、Harvey（法律 $5B）、Abridge（临床，对接 Epic）、Suno（音乐）等垂域 AI 靠行业私有数据与监管契合建立高壁垒，正从"通用 SaaS+AI 功能"走向"围绕基础模型架构"的 AI-native 垂直平台。<span class="src">datavook</span> <a href="https://datavook.com/post/new-ai-unicorns-2026" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">信任鸿沟与治理成采购胜负手</div>
+        <div class="cp">企业级采用看 SOC 2 / ISO 27001 / 零数据留存 / 合规审计；Gartner 预测 40% 企业应用到 2026 末将含 AI agent，"治理就绪度"成为分水岭。Headless-first、API 优先的厂商（Stripe/Twilio 类）受冲击最小。<span class="src">Solidaitech</span> <a href="https://www.solidaitech.com/2026/06/agentic-ai.html" target="_blank">查看</a></div>
+      </div>
+    </div>
+
+    <div class="sub-head"><span class="sec-tag tag-fin">V2</span><h3>财税垂直领域：从"数字员工"到"数字组织"</h3></div>
+    <div class="grid">
+      <div class="card">
+        <div class="ct">垂域财税大模型 + 工程化体系："犀友"准确率 93.56%</div>
+        <div class="cp">税友自研垂域大模型"犀友"依托 200 亿条财税私有数据、百万级财务指令、300 万张票据标注训练，综合业务准确率 93.56%，破解通用大模型"幻觉频发"；Harness 智芯驾驭层做知识供给/任务编排/链路治理/运行观测全闭环。<span class="src">证券时报</span> <a href="https://stcn.com/article/detail/3957199.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">A2A 多智能体协同：从数字员工到数字组织</div>
+        <div class="cp">税友 Agentic 2.0 首创 A2A（Agent-to-Agent）协同架构，构建基础账 / 合规账 / 经营账三层递进服务，单客户年客单价从 50 元升至 1500 元以上（约 30 倍），推动行业从百亿工具市场迈向千亿综合服务市场。<span class="src">中国金融信息网</span> <a href="https://m.cnfin.com/cmjj-lb//zixun/20260614/4426392_1.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">数据不出企业的端侧合规风控</div>
+        <div class="cp">金税四期全面落地后合规成刚需；垂域模型 + 私有部署满足"数据可溯源、可审计、安全可控、规避生成幻觉"。WAIC 2026 同步发布《人工智能合作发展行动计划》，强制规范政企商用 AI 全流程合规。<span class="src">和讯</span> <a href="https://news.hexun.com/2026-06-11/224309292.html" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">智能审核 / 费控 / 核算落地：票账税档全流程自动化</div>
+        <div class="cp">数智工场系列已服务 4000 余家财税机构、46.75 万中小企业，累计处理发票超 192 万张，释放机构 50%+ 重复人力，实现票、账、税、档全流程自动化；1 元 Token 投入撬动 460 元产业产出。<span class="src">国际金融报</span> <a href="https://www.ifnews.com/news.html?aid=841938&cid=43" target="_blank">查看</a></div>
+      </div>
+      <div class="card">
+        <div class="ct">金税 / 以数治税监管驱动 AIBM 战略</div>
+        <div class="cp">税友作为金税工程核心承建商，AIBM 战略路径清晰：2025 AI 营收占比超 20% → 2026 突破 50% → 2027 建成全域 AI 原生生态平台 → 2030 打造千亿数智财税生态，带动行业供给侧改革。<span class="src">证券时报</span> <a href="https://stcn.com/article/detail/3957199.html" target="_blank">查看</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">AI 趋势雷达 · 每日简报 ｜ 数据来源：WebSearch 核实的公开报道与厂商/机构官网（Forbes、BCG、麦肯锡、Gallup、Deloitte、OSSInsight、WAIC 2026、税友股份等），生成于 2026-07-24。仅供趋势参考，不构成投资建议。</div>
 </div>
 </body>
 </html>
