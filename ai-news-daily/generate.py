@@ -151,11 +151,12 @@ def safe_url(u: str) -> str:
 
 
 # ---------------- 搜索 ----------------
-def tavily_search(q: str, max_results: int = 4):
+def tavily_search(q: str, max_results: int = 6, days: int = 7):
     import requests
+    # topic=news + days=7：只抓最近 7 天内的新资讯，避免旧文章长期占坑导致"信息不新"
     r = requests.post("https://api.tavily.com/search",
         json={"api_key": TAVILY_KEY, "query": q, "max_results": max_results,
-              "search_depth": "advanced", "topic": "general"},
+              "search_depth": "advanced", "topic": "news", "days": days},
         timeout=30)
     r.raise_for_status()
     return r.json().get("results", [])
@@ -171,7 +172,7 @@ def collect_search_context():
             except Exception as e:
                 log(f"search {dim}/{q} error: {e}")
                 res = []
-            for it in res[:4]:
+            for it in res[:max_results]:
                 blocks.append(f"[{dim}·{q}]\n标题: {it.get('title','')}\n链接: {it.get('url','')}\n摘要: {it.get('content','')[:400]}")
         ctx[dim] = "\n\n".join(blocks) if blocks else f"[{dim}] 无检索结果"
     return ctx
@@ -321,7 +322,7 @@ def build_html(data, banner):
 
     banner_html = f'  <div class="catchup">{md_bold(banner)}</div>\n' if banner else ""
 
-    meta = (f"生成于 {date} ｜ 每日 09:00 自动更新")
+    meta = (f"生成于 {date} ｜ 每周一 09:00 自动更新")
 
     # 顶层分组包裹：按 GROUP_META 顺序，把各维度塞进对应 group
     def build_group(group_key, dim_blocks):
@@ -353,7 +354,7 @@ def build_html(data, banner):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 趋势雷达 · 每日简报</title>
+<title>AI 趋势雷达 · 每周简报</title>
 <style>
 {CSS}
 </style>
@@ -361,7 +362,7 @@ def build_html(data, banner):
 <body>
 <div class="wrap">
   <header>
-    <h1>AI 趋势雷达 · 每日简报</h1>
+    <h1>AI 趋势雷达 · 每周简报</h1>
     <div class="meta">{meta}</div>
   </header>
 
@@ -376,7 +377,7 @@ def build_html(data, banner):
 {groups_html}
 
   <footer>
-    本简报由 GitHub Actions 每日自动抓取（Tavily 检索）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
+    本简报由 GitHub Actions 每周一自动抓取（Tavily 检索，限最近 7 天）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
   </footer>
 </div>
 </body>
@@ -427,7 +428,8 @@ def main():
         f"# 维度 {k }\n{v}" for k, v in ctx.items())
 
     system = (
-        "你是一位资深 AI 行业分析师，负责产出中文《AI 趋势雷达·每日简报》。"
+        "你是一位资深 AI 行业分析师，负责产出中文《AI 趋势雷达·每周简报》。"
+        "本期聚焦最近一周（7 天内）发布的新资讯与趋势信号，旧内容无需纳入。"
         "必须严格基于下方『检索上下文』中的真实来源（标题/链接/摘要）撰写，禁止编造来源或数据；"
         "若上下文不足，可基于常识谨慎推断，但不得虚构 URL。"
         "输出纯 JSON（response_format=json_object），结构如下：\n"
@@ -454,7 +456,7 @@ def main():
         )
 
     user = (
-        "以下是今日各维度检索到的真实资讯，请据此生成简报 JSON：\n\n" + ctx_text + "\n\n"
+        "以下是最近一周各维度检索到的真实资讯，请据此生成简报 JSON：\n\n" + ctx_text + "\n\n"
         "请现在输出完整 JSON。"
     )
 
@@ -472,8 +474,10 @@ def main():
             fail(f"LLM/解析失败: {e2}")
 
     sec = data.get("sections", {})
-    if not sec.get("A") or not sec.get("V1") or not sec.get("V2"):
-        fail("LLM 返回缺少必需维度（A/V1/V2）")
+    # weekly 模式下某些维度一周内新闻可能稀疏，允许部分维度为空，仅当全空才放弃推送
+    non_empty = [k for k, v in sec.items() if v]
+    if not non_empty:
+        fail("LLM 返回所有维度均为空，可能检索上下文不足")
 
     banner = compute_banner()
     html_out = build_html(data, banner)
