@@ -2,7 +2,7 @@ name: AI Trend Radar Daily
 
 on:
   schedule:
-    - cron: "0 1,12 * * *"   # 北京时间 09:00 / 20:00
+        - cron: "0 1 * * 1"   # 北京时间 周一 09:00（每周一次）
   workflow_dispatch: {}
 
 permissions:
