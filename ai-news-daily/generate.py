@@ -32,14 +32,48 @@ LLM_BASE = ((os.environ.get("LLM_BASE_URL") or "https://api.deepseek.com/v1").rs
 LLM_MODEL = (os.environ.get("LLM_MODEL") or "deepseek-v4-flash").strip()  # v4 系列替代已弃用的 deepseek-chat
 CATCHUP_HOURS = 14
 
-# 检索维度与查询（每维度多组关键词，覆盖中英文权威来源）
+# 检索窗口与每 query 抓取量（模块级常量，统一引用，避免 collect_search_context 中引用未定义名）
+SEARCH_DAYS = 9    # 抓最近 9 天：制造跨周重叠，消除"周末边界永久漏"（每周一跑，覆盖上周六~本周一）
+MAX_RESULTS = 8    # 每 query 抓取 8 条：减少排名截断导致的漏失
+
+# 检索维度与查询（每维度 4 组关键词：权威媒体 + 深度分析/报告/案例，降 query 盲区）
 SEARCH_QUERIES = {
-    "A":  ["AI native enterprise platform agent 2026", "AI原生 企业 智能体 平台 2026"],
-    "B":  ["AI transformation enterprise ROI 2026 report", "AI转型 企业 成效 调研 2026"],
-    "C":  ["how employees use AI effectively productivity 2026", "员工 个人 利用AI 提效 botsitting 2026"],
-    "E":  ["trending AI agent skills GitHub 2026", "迅速走红 AI skills 新趋势 实践 2026"],
-    "V1": ["AI SaaS trends 2026 agentic MCP pricing", "AI SaaS 趋势 智能体 定价 2026"],
-    "V2": ["财税 AI 大模型 智能财税 应用 2026", "tax AI agent vertical model compliance 2026"],
+    "A":  [
+        "AI native enterprise platform agent 2026",
+        "AI原生 企业 智能体 平台 2026",
+        "AI-native company restructuring org design 2026 report",
+        "AI原生 组织变革 企业内部 智能体 落地 案例 2026",
+    ],
+    "B":  [
+        "AI transformation enterprise ROI 2026 report",
+        "AI转型 企业 成效 调研 2026",
+        "enterprise AI adoption benchmark study productivity 2026",
+        "企业 AI 应用 基准 调研 生产力 白皮书 2026",
+    ],
+    "C":  [
+        "how employees use AI effectively productivity 2026",
+        "员工 个人 利用AI 提效 botsitting 2026",
+        "AI skills workers learn prompt engineering workflow 2026 guide",
+        "职场人 AI 技能 提示词 工作流 实操 指南 2026",
+    ],
+    "E":  [
+        "trending AI agent skills GitHub 2026",
+        "迅速走红 AI skills 新趋势 实践 2026",
+        "viral AI tools open source agents release 2026",
+        "爆火 AI 工具 开源 智能体 发布 2026",
+    ],
+    "V1": [
+        "AI SaaS trends 2026 agentic MCP pricing",
+        "AI SaaS 趋势 智能体 定价 2026",
+        "SaaS AI integration marketplace MCP protocol 2026 analysis",
+        "SaaS AI 集成 应用市场 MCP 协议 趋势 分析 2026",
+    ],
+    "V2": [
+        "财税 AI 大模型 智能财税 应用 2026",
+        "tax AI agent vertical model compliance 2026",
+        "财税 大模型 智能体 合规 落地 报告 案例 2026",
+        "fintech tax AI automation regulation 2026 report",
+    ],
 }
 
 # 每个维度归属一个大分组（GROUP_META 控制页面顶层结构），tag 类与标题保持原样
@@ -151,9 +185,9 @@ def safe_url(u: str) -> str:
 
 
 # ---------------- 搜索 ----------------
-def tavily_search(q: str, max_results: int = 6, days: int = 7):
+def tavily_search(q: str, max_results: int = MAX_RESULTS, days: int = SEARCH_DAYS):
     import requests
-    # topic=news + days=7：只抓最近 7 天内的新资讯，避免旧文章长期占坑导致"信息不新"
+    # topic=news + days=SEARCH_DAYS(9)：抓最近 9 天新资讯，制造跨周重叠避免"周末边界永久漏"
     r = requests.post("https://api.tavily.com/search",
         json={"api_key": TAVILY_KEY, "query": q, "max_results": max_results,
               "search_depth": "advanced", "topic": "news", "days": days},
@@ -172,7 +206,7 @@ def collect_search_context():
             except Exception as e:
                 log(f"search {dim}/{q} error: {e}")
                 res = []
-            for it in res[:max_results]:
+            for it in res[:MAX_RESULTS]:
                 blocks.append(f"[{dim}·{q}]\n标题: {it.get('title','')}\n链接: {it.get('url','')}\n摘要: {it.get('content','')[:400]}")
         ctx[dim] = "\n\n".join(blocks) if blocks else f"[{dim}] 无检索结果"
     return ctx
@@ -377,7 +411,7 @@ def build_html(data, banner):
 {groups_html}
 
   <footer>
-    本简报由 GitHub Actions 每周一自动抓取（Tavily 检索，限最近 7 天）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
+    本简报由 GitHub Actions 每周一自动抓取（Tavily 检索，限最近 9 天，含跨周重叠）与生成（LLM 汇总）并推送 GitHub Pages，独立于 WorkBuddy 运行状态。链接均指向原始来源；卡片所标发布时间取自来源公开信息。
   </footer>
 </div>
 </body>
@@ -429,7 +463,7 @@ def main():
 
     system = (
         "你是一位资深 AI 行业分析师，负责产出中文《AI 趋势雷达·每周简报》。"
-        "本期聚焦最近一周（7 天内）发布的新资讯与趋势信号，旧内容无需纳入。"
+        "本期聚焦最近 9 天内发布的新资讯与趋势信号（检索窗口含跨周重叠，避免周末事件遗漏），旧内容无需纳入。"
         "必须严格基于下方『检索上下文』中的真实来源（标题/链接/摘要）撰写，禁止编造来源或数据；"
         "若上下文不足，可基于常识谨慎推断，但不得虚构 URL。"
         "输出纯 JSON（response_format=json_object），结构如下：\n"
@@ -456,7 +490,7 @@ def main():
         )
 
     user = (
-        "以下是最近一周各维度检索到的真实资讯，请据此生成简报 JSON：\n\n" + ctx_text + "\n\n"
+        "以下是最近 9 天各维度检索到的真实资讯，请据此生成简报 JSON：\n\n" + ctx_text + "\n\n"
         "请现在输出完整 JSON。"
     )
 
