@@ -50,7 +50,7 @@ a:hover{text-decoration:underline}
 <body>
 <div class="wrap">
 <h1>AI 趋势雷达 · 每日简报</h1>
-<div class="meta">生成日期：2026-07-25（周六）｜ 维度：七维（A 原生 / B 转型 / C 个人提效 / D 反直觉 / E 新趋势 / F 启发警示 / G 免费token额度）+ 垂直领域专区（SaaS · 财税）</div>
+<div class="meta">生成日期：2026-07-25（周六）｜ 维度：A/B/C/D/E/F + G 免费API额度（开发者API，剔除纯对话式）+ 垂直领域专区（SaaS · 财税）+ 社区热门讨论</div>
 <div class="banner">⚠️ 补生成提醒：上次计划生成于 2026-07-24 08:56，可能因设备休眠未执行，本次已为你补生成最新资讯。</div>
 <div class="takeaways">
 <h2>今日要点</h2>
@@ -240,23 +240,78 @@ a:hover{text-decoration:underline}
 </div>
 </div>
 <div class="sec">
-<h2><span class="tag tag-g">G</span> 免费 Token 额度平台（AI/LLM 为主）</h2>
+<h2><span class="tag tag-g">G</span> 免费 API 额度平台（仅收录开发者 API / 免费 tier；豆包·DeepSeek 等纯对话式 AI 已剔除）</h2>
+<div class="sub-head"><span class="sec-tag tag-g">G1</span><h3>海外免费 API 平台</h3></div>
 <div class="grid">
 <div class="card">
-<div class="ct">海外免费推理层：Groq / Gemini / Cloudflare / Cerebras / GitHub Models</div>
-<div class="cp">Groq 免费 LPU 推理每天 1,000–14,400 请求（按模型）、无需绑卡，跑 Llama/Mixtral/DeepSeek 开源权重；Google Gemini API 免费层 Gemini 2.5 Flash 约 1,500 req/天、原生多模态；Cloudflare Workers AI 免费 10,000 请求/天（边缘零运维）；Cerebras 免费 100 万 tokens/天、延迟极低；GitHub Models 可免费试用 GPT-4o/Llama/DeepSeek（限频）。<span class="src">G维度·平台官网</span> <span class="src-date">2026-07-25</span></div>
+<div class="ct"><a href="https://console.groq.com/" target="_blank">Groq</a> · 免费 LPU 推理额度</div>
+<div class="cp">免费额度：Llama 3.3 70B / Qwen3 等，30 RPM、14,400 RPD、100K–500K TPD，<b>免绑卡（邮箱注册）</b>。利弊：延迟极低（&lt;100ms）适合实时/语音 Agent；但模型清单固定、长输出易触 TPD 上限。</div>
 </div>
 <div class="card">
-<div class="ct">国产永久免费额度：智谱 / 硅基流动 / 火山 / 百炼 / DeepSeek / 混元 / Kimi / 星火</div>
-<div class="cp">智谱 AI 的 GLM-4-Flash / GLM-4.7-Flash 永久免费、新用户赠 2000 万 Token；硅基流动 SiliconFlow 2000 万 Token + 多个小模型永久免费（可商用）；火山引擎豆包 200 万 Token/天；阿里云百炼 1000 万 Token 永久 + 每月赠送；DeepSeek 注册赠额度且单价行业最低（约 $0.27/百万输入 token）；腾讯混元 HunyuanLite、Kimi（256K 上下文）、讯飞星火 SparkLite 均有永久免费档。<span class="src">G维度·平台官网</span> <span class="src-date">2026-07-25</span></div>
+<div class="ct"><a href="https://ai.google.dev/" target="_blank">Google Gemini API</a> · 免费层</div>
+<div class="cp">免费额度：Gemini 2.5 Flash 等，约 1,500 RPD 量级（按模型/档变动）、原生多模态 + 1M 上下文，<b>多数免绑卡</b>。利弊：多模态与长上下文独一档；但免费层限速且不承诺固定数值，非企业 SLA。</div>
 </div>
 <div class="card">
-<div class="ct">免费 credits + 路由聚合：OpenRouter / Together / Mistral / OmniRoute</div>
-<div class="cp">OpenRouter 免费模型 50 请求/天、充值 $10 后升至 1,000/天，统一 OpenAI 兼容接口接 300+ 模型；Together AI 新账户赠 $5 credits 跑开源权重；Mistral La Plateforme 提供试用 credits；OmniRoute 聚合 231+ 提供商、每月约 16 亿免费 token，按成本/延迟自动选路——"省 token" 已成 2026 主线刚需。<span class="src">G维度·平台官网</span> <span class="src-date">2026-07-25</span></div>
+<div class="ct"><a href="https://openrouter.ai/" target="_blank">OpenRouter</a> · 免费模型路由</div>
+<div class="cp">免费额度：20+ 免费模型，20 RPM / 50 RPD，充值 $10 后升至 1,000 RPD，<b>免绑卡</b>，统一 OpenAI 兼容接口接 300+ 模型。利弊：一站接多家、路由灵活；但 50/天太少，真实应用需付费扩容。</div>
 </div>
 <div class="card">
-<div class="ct">开放权重自部署：Meta Llama / Qwen / DeepSeek 等，零边际 API 费</div>
-<div class="cp">Llama 3/4、Qwen、DeepSeek、Mistral 等开放权重模型可用 vLLM/Ollama 本地或云自部署，一次部署零边际 API 费，适合隐私与高并发场景；配合上述免费云额度做灰度与兜底，把"推理成本"压到接近 0。<span class="src">G维度·平台官网</span> <span class="src-date">2026-07-25</span></div>
+<div class="ct"><a href="https://cerebras.ai/" target="_blank">Cerebras</a> · 免费高吞吐</div>
+<div class="cp">免费额度：~1M tokens/天、30 RPM，<b>免绑卡</b>。利弊：批处理吞吐极高；但模型清单窄、5 RPM 底线约束，不适合交互式高并发。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://developers.cloudflare.com/workers-ai/" target="_blank">Cloudflare Workers AI</a> · 边缘免费推理</div>
+<div class="cp">免费额度：10,000 neurons/天（非 token，按模型折算），<b>免绑卡</b>。利弊：边缘零运维、适合轻量工具；但上下文窗口小、按"神经元"计费难精确换算。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://github.com/marketplace/models" target="_blank">GitHub Models</a> · 免费前沿模型</div>
+<div class="cp">免费额度：GPT-4o / Llama / DeepSeek 等，15 RPM、50–150 RPD，<b>免绑卡（GitHub 账号）</b>。利弊：与 GitHub 工作流/Copilot 打通、免额外注册；但属实验性，非生产容量。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://mistral.ai/products/la-platforme" target="_blank">Mistral La Plateforme</a> · 试用 credits</div>
+<div class="cp">免费额度：Experiment 档约 1B tokens/月，<b>需手机验证（免卡）</b>。利弊：永久档里额度最大方之一；但限 Mistral 系、数据可用于训练。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://www.together.ai/" target="_blank">Together AI</a> · 试用额度</div>
+<div class="cp">免费额度：新账户赠 $5 credits 跑开源权重（<b>非纯永久免费，最低 $5 充值</b>）。利弊：开源权重全、训练/推理一体；但 credit 用尽需付费，企业级需合约。</div>
+</div>
+</div>
+<div class="sub-head"><span class="sec-tag tag-g">G2</span><h3>国产免费 API 平台</h3></div>
+<div class="grid">
+<div class="card">
+<div class="ct"><a href="https://open.bigmodel.cn/" target="_blank">智谱 AI（BigModel）</a> · 永久免费额度</div>
+<div class="cp">免费额度：新用户 2000 万 Token 永久，GLM-4-Flash / GLM-4.7-Flash 永久免费（128K–200K 上下文），<b>注册即得</b>。利弊：中文强、永久额度稳；但免费档约 30 并发限制。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://cloud.siliconflow.cn/" target="_blank">硅基流动 SiliconFlow</a> · 永久免费额度</div>
+<div class="cp">免费额度：新用户 2000 万 Token + 多个小模型永久免费（可商用），<b>注册即得</b>。利弊：国内延迟低、OpenAI 兼容、模型全；但主力大模型需付费。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://ark.cn-beijing.volces.com/api/v3" target="_blank">火山引擎方舟（Doubao API）</a> · 每日免费额度</div>
+<div class="cp">免费额度：协作奖励计划每天 200 万 Token（按天重置）+ 安心体验每模型 50 万，<b>需实名</b>。利弊：豆包模型官方 API、中文场景优、按天重置适合脚本；但免费档能力有限。（注：豆包*对话 App* 按"纯对话式"已剔除，此处仅保留其开发者 API。）</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://dashscope.aliyun.com/" target="_blank">阿里云百炼（DashScope）</a> · 免费额度</div>
+<div class="cp">免费额度：注册送 1000 万永久 Token + 每月赠送（各模型独立额度，部分 90 天有效），<b>需绑阿里云账号 + 实名</b>。利弊：模型最全、生态好；但开通门槛高。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://cloud.tencent.com/product/hunyuan" target="_blank">腾讯混元 API</a> · 免费额度</div>
+<div class="cp">免费额度：通用 100 万 Token/年 + Embedding 100 万 + Lite 永久免费，<b>需腾讯云账号</b>。利弊：腾讯生态打通、有效期长；但模型矩阵较窄、免费档基础。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://platform.moonshot.cn/" target="_blank">Kimi（Moonshot）API</a> · 长上下文</div>
+<div class="cp">免费额度：新用户约 15 元代金券（永久有效），kimi-k2.5 支持 256K 上下文，<b>注册即得</b>。利弊：超长上下文独一档；但免费额度有限、按量计费、并发低。</div>
+</div>
+<div class="card">
+<div class="ct"><a href="https://xinghuo.xfyun.cn/" target="_blank">讯飞星火 API</a> · 永久免费档</div>
+<div class="cp">免费额度：spark-lite 永久免费（总量不限，QPS=2）+ 每模型 20 万 Token，<b>注册即得</b>。利弊：中文语音 + 认知强；但免费档能力基础。</div>
+</div>
+</div>
+<div class="sub-head"><span class="sec-tag tag-g">G3</span><h3>开放权重自部署（免 API 费）</h3></div>
+<div class="grid">
+<div class="card">
+<div class="ct"><a href="https://huggingface.co/" target="_blank">Llama / Qwen / Mistral / GLM 开放权重</a> · 自部署</div>
+<div class="cp">免费额度：权重免费下载，vLLM / Ollama 本地或云自部署，一次部署<b>零边际 API 费</b>。利弊：隐私可控、高并发零边际成本；但需自运维 GPU、工程门槛高。（注：DeepSeek 开放权重同属此类，但其*对话产品*已按"纯对话式"剔除，此处仅指权重自部署工程用法。）</div>
 </div>
 </div>
 </div>
