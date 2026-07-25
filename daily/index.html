@@ -38,6 +38,7 @@ a:hover{text-decoration:underline}
 .sub-head h3{font-size:16px;margin:0}
 .g-note{font-size:12px;color:#6b7280;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 12px;margin:10px 0 4px;line-height:1.7}
 .vdate{display:inline-block;font-size:11px;color:#7c3aed;background:#f3effe;border:1px solid #ddd6fe;border-radius:10px;padding:1px 8px;margin-top:7px}
+.pit{font-size:12px;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:6px 10px;margin:6px 0 0;line-height:1.6}
 .sec-tag{display:inline-block;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:600}
 .tag-vert{background:#475569}
 .tag-saas{background:#0891b2}
@@ -279,41 +280,49 @@ a:hover{text-decoration:underline}
 <div class="card">
 <div class="ct"><a href="https://console.groq.com/" target="_blank">Groq</a> · 免费 LPU 推理额度</div>
 <div class="cp">免费额度：Llama 3.3 70B / Qwen3 等，30 RPM、14,400 RPD、100K–500K TPD，<b>免绑卡（邮箱注册）</b>。利弊：延迟极低（&lt;100ms）适合实时/语音 Agent；但模型清单固定、长输出易触 TPD 上限。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（超额返 429 即停，需手动升级）；真天花板是 <b>6,000 TPM</b>——平均请求 500 token 时实际仅 ~12 次/分钟（非理论 30 RPM）；并发仅 5；<b>高峰时段免费层被降优先级、无 SLA</b>。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://ai.google.dev/" target="_blank">Google Gemini API</a> · 免费层</div>
 <div class="cp">免费额度：Gemini 3 Flash 等，约 1,500 RPD 量级（按模型/档变动；Google 已于 2025-12 削减免费额度 50–80%）、原生多模态 + 1M 上下文，<b>多数免绑卡</b>。利弊：多模态与长上下文独一档；但免费层限速、Pro 系列已移出免费层，非企业 SLA。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（需手动开通 Cloud Billing）；但官方速率限制"<b>不作保证</b>"，高峰实测远低于标称（Flash 标称 250 RPD 高峰仅跑通 ~20 次/天）；<b>免费层输入/输出可能用于训练改进</b>（升级付费 Tier 1 才消除）；2025-12 已砍 50–80%、Pro 移出免费。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://openrouter.ai/" target="_blank">OpenRouter</a> · 免费模型路由</div>
 <div class="cp">免费额度：20+ 免费模型，20 RPM / 50 RPD，充值 $10 后升至 1,000 RPD，<b>免绑卡</b>，统一 OpenAI 兼容接口接 300+ 模型。利弊：一站接多家、路由灵活；但 50/天太少，真实应用需付费扩容。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（免费模型 :free 封顶即停）；但免费模型为<b>最低优先级</b>，高峰常被 provider 限速，且<b>失败请求也计入每日配额</b>；50 RPD 太少，真实应用需充值 $10 扩容。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://cerebras.ai/" target="_blank">Cerebras</a> · 免费高吞吐</div>
 <div class="cp">免费额度：~1M tokens/天、30 RPM，<b>免绑卡</b>。利弊：批处理吞吐极高；但模型清单窄、5 RPM 底线约束，不适合交互式高并发。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>；但免费层<b>上下文锁 8K</b>（付费才 128K）——长文档/长对话直接废；30 RPM 为硬约束；模型清单窄。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://developers.cloudflare.com/workers-ai/" target="_blank">Cloudflare Workers AI</a> · 边缘免费推理</div>
 <div class="cp">免费额度：10,000 neurons/天（非 token，按模型折算），<b>免绑卡</b>。利弊：边缘零运维、适合轻量工具；但上下文窗口小、按"神经元"计费难精确换算。</div>
+<div class="pit">⚠️ 坑位：免费 Workers 计划硬上限 10,000 neurons/天（超额即停、<b>不会自动扣费</b>）；但 neurons 是抽象单位难精确换算、10K 实际仅 ~100–200 次 LLM 响应；若<b>主动升级 Paid 计划</b>则超出部分自动计费（opt-in 后才会）。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://github.com/marketplace/models" target="_blank">GitHub Models</a> · 免费前沿模型</div>
 <div class="cp">免费额度：GPT-4o / Llama / DeepSeek 等，15 RPM、50–150 RPD，<b>免绑卡（GitHub 账号）</b>。利弊：与 GitHub 工作流/Copilot 打通、免额外注册；但属实验性，非生产容量。</div>
+<div class="pit">⚠️ 坑位：<b>默认不会自动扣费</b>（需主动"选择加入付费使用"）；但免费层仅 <b>15 RPM / 150 RPD 极低</b>；免费层与付费层<b>不同队列</b>，付费跑独立部署——免费层高峰更易挤兑。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://mistral.ai/products/la-platforme" target="_blank">Mistral La Plateforme</a> · 试用 credits</div>
 <div class="cp">免费额度：Experiment 档约 1B tokens/月，<b>需手机验证（免卡）</b>。利弊：永久档里额度最大方之一；但限 Mistral 系、数据可用于训练。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（超额即限流不扣费）；但<b>强制手机验证</b>才能用免费层；~1 请求/秒极慢；<b>数据可能用于训练</b>（需手动 opt-out）。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://www.together.ai/" target="_blank">Together AI</a> · 试用额度</div>
 <div class="cp">免费额度：新账户赠 $5 credits（<b>试用额度会过期，非永久免费</b>），可跑开源权重；另有少量永久免费模型。利弊：开源权重全、训练/推理一体；但 credit 用尽即停，生产需付费。</div>
+<div class="pit">⚠️ 坑位：本质是<b>试用 credit（$5，会过期，非永久免费）</b>，用尽即停、<b>不自动扣费</b>；免费层限速激进、<b>不排队</b>，突发并行直接 429；<b>无永久免费层</b>，生产需付费。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 </div>
@@ -322,36 +331,43 @@ a:hover{text-decoration:underline}
 <div class="card">
 <div class="ct"><a href="https://open.bigmodel.cn/" target="_blank">智谱 AI（BigModel）</a> · 永久免费额度</div>
 <div class="cp">免费额度：新用户 2000 万 Token 永久，GLM-4-Flash / GLM-4.7-Flash 永久免费（128K–200K 上下文），<b>注册即得</b>。利弊：中文强、永久额度稳；但免费档约 30 并发限制。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（额度用完需手动充值/订阅）；但免费模型<b>并发限制低（~1–30 视模型）</b>；需<b>支付宝刷脸实名</b>才能用免费额度与付费。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://cloud.siliconflow.cn/" target="_blank">硅基流动 SiliconFlow</a> · 永久免费额度</div>
 <div class="cp">免费额度：新用户 2000 万 Token + 多个小模型永久免费（可商用），<b>注册即得</b>。利弊：国内延迟低、OpenAI 兼容、模型全；但主力大模型需付费。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（永久额度用尽后按量需手动充值）；但基础 <b>QPS=5、TPM=100k</b> 偏低；免费体验套餐有"每日 200 次调用"上限；提升 QPS 需实名。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://ark.cn-beijing.volces.com/api/v3" target="_blank">火山引擎方舟（Doubao API）</a> · 每日免费额度</div>
 <div class="cp">免费额度：协作奖励计划每天 200 万 Token（按天重置）+ 安心体验每模型 50 万，<b>需实名</b>。利弊：豆包模型官方 API、中文场景优、按天重置适合脚本；但免费档能力有限。（注：豆包*对话 App* 按"纯对话式"已剔除，此处仅保留其开发者 API。验证校正：实测即 200 万/天，非"1000 万"。）</div>
+<div class="pit">⚠️ 坑位：<b>默认免费用完自动从统一账户扣费</b>（静默转付费）！需手动开启<b>「安心模式」</b>才会在额度耗尽后暂停、不产生费用；需实名。<b>这是本表唯一默认静默转付费的海外/国内平台之一（另一家见阿里云百炼）。</b></div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://dashscope.aliyun.com/" target="_blank">阿里云百炼（DashScope）</a> · 免费额度</div>
 <div class="cp">免费额度：每模型独立 100 万 Token（有效期 3 个月，可叠加多个模型）+ 通义千问-turbo 永久免费，<b>需阿里云账号 + 实名</b>。利弊：模型最全、生态好；但免费额度非永久（3 个月到期），与早年"1000 万永久"已不符。</div>
+<div class="pit">⚠️ 坑位：对<b>已实名用户，免费额度耗尽后继续调用会直接扣费</b>（静默转付费）！需手动开启<b>「免费额度用完即停」</b>功能规避；且免费额度仅 90 天非永久。<b>与火山方舟同属"默认静默转付费"风险。</b></div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://cloud.tencent.com/product/hunyuan" target="_blank">腾讯混元 API</a> · 免费额度</div>
 <div class="cp">免费额度：通用 100 万 Token/年 + Embedding 100 万 + Lite 永久免费，<b>需腾讯云账号</b>。利弊：腾讯生态打通、有效期长；但模型矩阵较窄、免费档基础。</div>
+<div class="pit">⚠️ 坑位：<b>默认不会自动转付费</b>（不开通后付费就直接报错停服，安全）；但需实名认证；限速/并发文档较模糊，生产前需自测实际吞吐。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://platform.moonshot.cn/" target="_blank">Kimi（Moonshot）API</a> · 长上下文</div>
 <div class="cp">免费额度：新用户约 15 元代金券（永久有效），kimi-k2.5 支持 256K 上下文，<b>注册即得</b>。利弊：超长上下文独一档；但免费额度有限、按量计费、并发低。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（代金券用尽后从"充值余额"扣，余额 0 直接 403 停；不预充值就不扣）；但免费层仅 <b>3 RPM</b>，限速等级随累计充值阶梯解锁；15 元代金券<b>不可用于最新 K3 模型</b>；需实名。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 <div class="card">
 <div class="ct"><a href="https://xinghuo.xfyun.cn/" target="_blank">讯飞星火 API</a> · 永久免费档</div>
 <div class="cp">免费额度：spark-lite 永久免费（总量不限，QPS=2）+ 每模型 20 万 Token（个人）/ 100 万（企业），<b>注册即得</b>。利弊：中文语音 + 认知强；但免费档能力基础。</div>
+<div class="pit">⚠️ 坑位：<b>不会自动转付费</b>（免费包用尽需主动买套餐/开后付费）；但免费包 <b>QPS=2 极低</b>、并发 20 路（个人）/ 40 路（企业）；需实名认证领免费包。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 </div>
@@ -360,6 +376,7 @@ a:hover{text-decoration:underline}
 <div class="card">
 <div class="ct"><a href="https://huggingface.co/" target="_blank">Llama / Qwen / Mistral / GLM 开放权重</a> · 自部署</div>
 <div class="cp">免费额度：权重免费下载，vLLM / Ollama 本地或云自部署，一次部署<b>零边际 API 费</b>。利弊：隐私可控、高并发零边际成本；但需自运维 GPU、工程门槛高。（注：DeepSeek 开放权重同属此类，但其*对话产品*已按"纯对话式"剔除，此处仅指权重自部署工程用法。）</div>
+<div class="pit">⚠️ 坑位：权重免费但<b>算力/GPU 自担</b>，并非"零成本"——云 GPU 按时计费、本地需硬件；<b>高并发才算回边际成本</b>，低频场景不如直接用 API；工程运维门槛高。</div>
 <div class="vdate">🕐 验证 2026-07-25</div>
 </div>
 </div>
