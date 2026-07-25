@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
@@ -9,7 +8,7 @@
 :root{
   --bg:#f5f7fa; --card:#ffffff; --ink:#1f2937; --muted:#64748b;
   --line:#e5e9f0; --accent:#2563eb; --soft:#eff6ff;
-  --tagA:#7c3aed; --tagB:#0891b2; --tagC:#059669; --tagD:#d97706; --tagE:#db2777; --tagF:#be123c; --tagG:#4f46e5;
+  --tagNew:#0891b2; --tagTrans:#7c3aed; --tagRef:#059669; --tagRisk:#be123c; --tagG:#4f46e5;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -24,13 +23,14 @@ h1{font-size:26px;margin:0 0 6px;letter-spacing:.5px}
 .sec{margin-top:28px}
 .sec h2{font-size:19px;border-left:4px solid var(--accent);padding-left:10px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
 .tag{display:inline-block;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:700;line-height:1.5}
-.tag-a{background:var(--tagA)} .tag-b{background:var(--tagB)} .tag-c{background:var(--tagC)}
-.tag-d{background:var(--tagD)} .tag-e{background:var(--tagE)} .tag-f{background:var(--tagF)} .tag-g{background:var(--tagG)}
+.tag-new{background:var(--tagNew)} .tag-trans{background:var(--tagTrans)} .tag-ref{background:var(--tagRef)}
+.tag-risk{background:var(--tagRisk)} .tag-g{background:var(--tagG)} .tag-comm{background:#7c3aed}
 .grid{display:grid;grid-template-columns:1fr;gap:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .card:hover{border-color:#c7d2fe}
 .ct{font-weight:600;font-size:15px;margin:0 0 6px}
 .cp{font-size:14px;color:#374151;margin:0}
+.ind{display:inline-block;font-size:11px;color:#64748b;background:#f1f5f9;border-radius:5px;padding:0 6px;margin-left:6px;vertical-align:middle}
 .src{display:inline-block;font-size:12px;color:#fff;background:#94a3b8;border-radius:999px;padding:1px 9px;margin-right:6px;vertical-align:middle}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
@@ -50,7 +50,7 @@ a:hover{text-decoration:underline}
 <body>
 <div class="wrap">
 <h1>AI 趋势雷达 · 每日简报</h1>
-<div class="meta">生成日期：2026-07-25（周六）｜ 维度：A/B/C/D/E/F + G 免费API额度（开发者API，剔除纯对话式）+ 垂直领域专区（SaaS · 财税）+ 社区热门讨论</div>
+<div class="meta">生成日期：2026-07-25（周六）｜ 维度：🔥新发生 / 🔄在转型 / 💡可借鉴 / 🚩需警惕 + 🆓免费API额度 + 💬社区热门（垂直行业 SaaS·财税 以标签标注）</div>
 <div class="banner">⚠️ 补生成提醒：上次计划生成于 2026-07-24 08:56，可能因设备休眠未执行，本次已为你补生成最新资讯。</div>
 <div class="takeaways">
 <h2>今日要点</h2>
@@ -62,7 +62,7 @@ a:hover{text-decoration:underline}
 </ul>
 </div>
 <div class="sec">
-<h2><span class="tag tag-a">A</span> AI 原生（AI-Native）</h2>
+<h2><span class="tag tag-new">新</span> 🔥 新发生（What's New：产品 / 模型 / 融资 / 发布 / 开源）</h2>
 <div class="grid">
 <div class="card">
 <div class="ct">AWS 全球调研：AI 原生初创以"半程时间、半数人手"造独角兽</div>
@@ -84,10 +84,34 @@ a:hover{text-decoration:underline}
 <div class="ct">达沃斯：AI 优先企业的五大特征与"蜂巢式"组织</div>
 <div class="cp">科尔尼罗默：AI 优先企业具备持续学习、技术中立架构、重塑运营、重构人机接口、紧扣业务价值五大特征。黑湖科技以"蜂巢式结构"让 AI 参与 CEO 级决策，赋予最高权限做"人机协同的首席运营官"；AI71 提醒"个体提效 10-20% 不等于公司增长，需重设流程"。<span class="src">经济日报</span> <span class="src-date">2026-01</span> <a href="https://hfch.1633.com/zixun/537/537454.html" target="_blank">查看</a></div>
 </div>
+<div class="card">
+<div class="ct">GitHub W28 热榜：19 个项目周增约 7 万星，几乎全服务 Agent</div>
+<div class="cp">本周热点：meetily（本地隐私会议助手，Rust+Whisper，周 +8.6k）、system_prompts_leaks（57k）、OfficeCLI（AI 读写 Office，+6.5k）、orca（并行代理编排）、herdr（终端代理多路复用）、codex-plugin-cc（OpenAI 官方，在 Claude Code 里调 Codex）、alibaba/page-agent（住在网页里的 GUI Agent）。<span class="src">掘金 Github 周刊</span> <span class="src-date">2026-07</span> <a href="https://juejin.cn/post/7661160061001089064" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">Skills 成"工程资产"：可安装、可复用、可审计</div>
+<div class="cp">silenceper 观察：Understand-Anything（代码库转知识图谱）、superpowers（给 Agent 装开发方法论）、ECC（技能+记忆+hook+安全扫描的 harness）、stop-slop（去 AI 腔）、taste-skill（前端审美）同时上榜——竞争已从"模型能否答"转向"工作方法能否被团队安装、复用、验证、共享"。<span class="src">silenceper</span> <span class="src-date">2026-05-27</span> <a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering/" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">"同事.skill"破圈：5 天 7.3k 星、10 天破万</div>
+<div class="cp">上海 AI 实验室工程师周天奕开源"同事.skill"：喂入离职同事的聊天记录/文档/邮件即生成能模仿其工作习惯的数字分身，SKILL.md 双层架构��随后衍生"前任/老板/导师/永生.skill"甚至"反蒸馏.skill"，从极客圈直破小红书、微博，被称"2026 年 4 月最离谱的开源狂欢"。<span class="src">CSDN</span> <span class="src-date">2026-04</span> <a href="https://blog.csdn.net/weixin_40040017/article/details/160181172" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">Agent 延伸到"个人事务工作流"</div>
+<div class="cp">MadsLorentzen/ai-job-search 单周 +13195 星——本地跑的 AI 求职流水线，评估 JD、定制简历、写求职信、备面试全本地执行；HKUDS/Vibe-Trading（个人交易 Agent）、bradautomates/claude-video（让 AI"看"视频）同期走红，Agent 正从"写代码"延伸到处理具体个人事务。<span class="src">SegmentFault</span> <span class="src-date">2026-07</span> <a href="https://segmentfault.com/a/1190000048030868" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">Token 成本战 + Agent 安全沙箱并行走红</div>
+<div class="cp">caveman 让 30+ 编码助手用"穴居人风格"回话省 65% token；OmniRoute 聚合 231+ 提供商、每月约 16 亿免费 token；腾讯云 CubeSandbox（毫秒级启动、硬件级隔离、兼容 E2B）为 Agent 提供安全代码执行——降本与"管得住"同步成为主线。<span class="src">掘金 / 头条</span> <span class="src-date">2026</span> <a href="https://www.toutiao.com/article/7660383168494584363" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">代码知识图谱成 Agent 基础设施</div>
+<div class="cp">Graphify-Labs/graphify（87k 星）把任意代码/文档转成可查询知识图谱的 Agent Skill；理念是"Agent 改系统前先要一张系统地图"，且知识图谱可随 commit 更新，成为长期上下文——比易漂移的文档更适合喂给 Agent。<span class="src">SegmentFault</span> <span class="src-date">2026</span> <a href="https://segmentfault.com/a/1190000048030868" target="_blank">查看</a></div>
+</div>
 </div>
 </div>
 <div class="sec">
-<h2><span class="tag tag-b">B</span> AI 转型（AI Transformation）</h2>
+<h2><span class="tag tag-trans">转</span> 🔄 在转型（Who's Transforming：企业 / 行业 AI 化）</h2>
 <div class="grid">
 <div class="card">
 <div class="ct">BCG AI Radar 2026：支出翻倍，CEO 亲自下场</div>
@@ -107,12 +131,52 @@ a:hover{text-decoration:underline}
 </div>
 <div class="card">
 <div class="ct">CEO 成事实上的"首席 AI 官"，但离决策越远信心越低</div>
-<div class="cp">BCG 把 CEO 分三类：Followers（约 15%，仅小规模试点）、Pragmatists（约 70%，每周花 7 小时接触 AI）、Trailblazers（约 15%，把过半 AI 预算投向 agent、端到端改造）。信心随"离决策距离"递减：CEO 62% → 非 C 级高管 48%——顶层 ownership 是分水岭。<span class="src">BCG</span> <span class="src-date">2026-01-15</span> <a href="https://www.bcg.com/press/15january2026-as-ai-investments-surge-ceos-take-lead" target="_blank">查看</a></div>
+<div class="cp">BCG 把 CEO 分三类：Followers（约 15%，仅小规模试点）、Pragmatists（约 70%，每周花 7 小时接触 AI）、Trailblazers（约 15%，把过半 AI 预算投向 agent、端到端改造）。信心随"离决策距离"递减：CEO 62% → 非 C 级高管 48%——顶层 ownership 是分水岭。<span class="src">BCG</span> <span class="src-date">2026-01-15</span> <a href="https://www.bcg.com/press/15january2026-as-ai-investments-surge-ceos-take-the-lead" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">"SaaS 末日"：头六周约 2 万亿美元市值蒸发</div><span class="ind">SaaS</span>
+<div class="cp">institutepm：2026 年 1-2 月约 2 万亿美元软件市值蒸发，催化剂是 agent 能端到端跑完多步业务流；Forrester 报告《我们所知的 SaaS 已死》，软件 ETF（IGV）跌 22%，SaaS 首次相对标普折价交易。存活者三特征：确定性正确、深数据护城河、监管复杂度。<span class="src">Institute PM</span> <span class="src-date">2026-02</span> <a href="https://www.institutepm.com/knowledge-hub/ai-agents-saas-disruption-strategy" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">坐席制定价崩塌：转向用量/成果计费</div><span class="ind">SaaS</span>
+<div class="cp">ThriveStack：纯坐席制降至 15%（去年 21%），41% 转混合、61% 用量计费；Salesforce Agentforce 按动作、Intercom Fin 按"每解决一次对话"$0.99（已解 4000 万次，解决率 66%）、Zendesk $1.50/工单。核心原则："若 AI 失败，客户不付费"。<span class="src">ThriveStack / PaperOffice</span> <span class="src-date">2026</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">MCP 成新集成层：软件开始"买"软件</div><span class="ind">SaaS</span>
+<div class="cp">MCP 首年即达约 9700 万月 SDK 下载、5800+ 服务器、28% 财富 500 已纳入 AI 栈，5 个月增长 80 倍；涌现 ToolOracle（按结果付费）、x402/USDC 微支付等市场，agent 无需 API Key/订阅即可按次自动调用工具——"Agent 主导增长"（ALG）成新 GTM。<span class="src">ThriveStack</span> <span class="src-date">2026</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">Agent-first 设计与"服务即软件"经济学</div><span class="ind">SaaS</span>
+<div class="cp">agentmarketcap：agent-first 产品毛利 50-60%（低于传统 80-90%），因交付的是"自动化"而非"增强"；50-70% 目标流程成本下降。新挑战"成果流失"（agent 自动完成目标后用户以"低使用"退订）；&gt;$250/月的高价产品 GRR 达 70%，成留存过滤器。<span class="src">Agent Market Cap</span> <span class="src-date">2026-04-09</span> <a href="https://agentmarketcap.ai/blog/2026/04/09/agent-first-startup-playbook-2026" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">AI 超新星：人均营收 10-20 倍碾压传统 SaaS</div><span class="ind">SaaS</span>
+<div class="cp">Lovable 45 人 8 天做到 100 万 ARR、12 个月 2 亿 ARR，人均 440 万美元；Cursor &lt;50 人人均 330 万；传统 SaaS 人均约 20 万。新增长律"6-10 倍 YoY"取代 T2D3；94% B2B 买家在选型中用 LLM、77% 直接买"AI 推荐的首选"。<span class="src">ThriveStack</span> <span class="src-date">2026-01-15</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">垂域财税大模型 + 工程化体系："犀友"准确率 93.56%</div><span class="ind">财税</span>
+<div class="cp">税友 6 月 11 日发布 Agentic 2.0，自研垂域大模型"犀友"依托 200 亿条财税私有数据、百万级财务指令、300 万张票据标注训练，结合记忆体系/规则路由/链路追踪，综合业务准确率 93.56%，破解通用大模型"幻觉频发、稳定性差"通病；Harness 工程体系做知识供给与链路治理。<span class="src">税友股份官网</span> <span class="src-date">2026-06-11</span> <a href="https://www.servyou.com.cn/News/Index/1027506178235055/Detail/1027512451183847/2912577837030424" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">A2A 多智能体协同：从数字员工到数字组织</div><span class="ind">财税</span>
+<div class="cp">Agentic 2.0 首创 A2A 协同架构，构建基础账/合规账/经营账三层递进服务，单客户年客单价从 50 元升至 1500 元以上（约 30 倍），推动行业从百亿工具市场迈向千亿综合服务市场；跳出单点工具思维，形成 7×24 小时虚拟财税服务单元。<span class="src">国际金融报</span> <span class="src-date">2026-06</span> <a href="https://www.ifnews.com/news.html?aid=841938&amp;cid=43" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">票账税档全流程自动化：释放 50%+ 重复人力</div><span class="ind">财税</span>
+<div class="cp">数智工场系列已服务 4000 余家财税机构、46.75 万中小企业，累计处理发票超 192 万张，可释放机构 50% 以上重复性人力，实现票、账、税、档全流程自动化；财税处理效率达传统 10 倍、准确率超 90%、人力成本降约 60%。<span class="src">同花顺 / 税友</span> <span class="src-date">2026</span> <a href="https://news.10jqka.com.cn/field/sr/19700101/58575927.shtml" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">金税四期 / 以数治税：合规成刚需，"三浪叠加"</div><span class="ind">财税</span>
+<div class="cp">全国注册企业超 6600 万家、中小微超 5500 万家，至少 70% 把基础财税外包给代账机构；金税四期落地后合规风控成刚需。宏观承压 + 监管趋严 + AI 生产力革命"三浪叠加"，推动行业从基础代账走向高价值顾问服务。<span class="src">国际金融报</span> <span class="src-date">2026-06-11</span> <a href="https://new.qq.com/rain/a/20260611A09CL500?refer=cp_1009" target="_blank">查看</a></div>
+</div>
+<div class="card">
+<div class="ct">AIBM 战略与联营云：续费率 75.8%，路径清晰</div><span class="ind">财税</span>
+<div class="cp">税友 AIBM 路径：2025 AI 营收占比超 20% → 2026 突破 50% → 2027 建成全域 AI 原生生态 → 2030 打造千亿数智财税生态。联营云已服务超 2.38 万户、平均续费率 75.8%、利润率同比 +15%；企业会员/合规账/经营账新赛道测算超 300 亿元市场。<span class="src">发现报告 / 税友</span> <span class="src-date">2026</span> <a href="https://www.fxbaogao.com/detail/5485196" target="_blank">查看</a></div>
 </div>
 </div>
 </div>
 <div class="sec">
-<h2><span class="tag tag-c">C</span> 企业员工个人如何更有效地利用 AI</h2>
+<h2><span class="tag tag-ref">借</span> 💡 可借鉴（So-What for Me：个人 / 团队方法论 · 案例）</h2>
 <div class="grid">
 <div class="card">
 <div class="ct">微软：赢家是"前沿工作者"，不是工具最多的人</div>
@@ -138,10 +202,25 @@ a:hover{text-decoration:underline}
 <div class="ct">Skill 已破圈到非技术岗：把"角色"打包成插件</div>
 <div class="cp">Anthropic 开源 knowledge-work-plugins，覆盖销售、客服、产品、市场、法务、财务、数据等知识工作角色——不再只服务程序员。非技术员工可直接安装"角色技能包"，把专家 SOP 变成可调用工作流。<span class="src">silenceper</span> <span class="src-date">2026-05-27</span> <a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering/" target="_blank">查看</a></div>
 </div>
+<div class="card">
+<div class="ct">启发：先重设计流程，再谈工具</div>
+<div class="cp">微软"前沿工作者"（16%）产出全新工作的比率近乎翻倍（80% vs 58%），差别不在用哪个工具，而在是否先想清"哪些任务交 AI、哪些留给人"。Gallup 仅 12% 员工认为 AI 已根本改变工作方式——多数还停在旧流程提速。<span class="src">Microsoft WorkLab</span> <span class="src-date">2026-06-17</span> <a href="https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization" target="_blank">查看</a></div>
+<div class="adv">建议：选一个你最花时间的流程，先画"人机分工图"再引入 AI，而不是把 AI 硬塞进旧动作。</div>
+</div>
+<div class="card">
+<div class="ct">启发：新手更该趁早上车（AI 是均衡器）</div>
+<div class="cp">NNG：新手用 AI 受益是老手的 2.4 倍，客服新手 +34%、代码产出 +126%、写作 +59%。日常 AI 抬的是"能力地板"——让初级者做出接近资深者的产出。<span class="src">Saner.ai / NNG</span> <span class="src-date">2026</span> <a href="https://www.saner.ai/blogs/ai-at-work-statistics" target="_blank">查看</a></div>
+<div class="adv">建议：越是入行不久越要建立每日 AI 习惯；挑一件枯燥任务坚持 20-30 次真实尝试再下结论。</div>
+</div>
+<div class="card">
+<div class="ct">启发：把"角色 SOP"打包成可复用技能</div>
+<div class="cp">Anthropic knowledge-work-plugins 已覆盖销售/客服/产品/市场/法务/财务/数据；claude-skills 收录 355 个生产级技能。领域方法论正被版本化、可安装——普通人也能把自己的重复流程沉淀成"技能"。<span class="src">silenceper / 掘金</span> <span class="src-date">2026-05-27</span> <a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering/" target="_blank">查看</a></div>
+<div class="adv">建议：把你做得最多的一类任务写成一份可复用 SKILL/清单，从"卖时间"转向"卖系统"。</div>
+</div>
 </div>
 </div>
 <div class="sec">
-<h2><span class="tag tag-d">D</span> 反直觉思考（常识预期 → 实际发现 → 启示）</h2>
+<h2><span class="tag tag-risk">惕</span> 🚩 需警惕（Risk / Myth-bust：反直觉事实 + 风险警示）</h2>
 <div class="grid">
 <div class="card">
 <div class="ct">D1：AI 普及 = 工作方式已被重塑？</div>
@@ -173,62 +252,13 @@ a:hover{text-decoration:underline}
 <div class="drow"><span class="dlab">实际发现</span><span class="dtxt">Gallup：41% 组织已引入 AI，但仅 28% 员工高频使用；仅 26% 员工认为公司有清晰 AI 计划（3/4 没沟通）；44% 用 AI 的员工没有任何公司指引。<span class="src">Gallup / Solidaitech</span> <span class="src-date">2026-05</span> <a href="https://www.solidaitech.com/2026/05/daily-ai-habits-tools-routine.html" target="_blank">查看</a></span></div>
 <div class="drow"><span class="dlab">启示</span><span class="dtxt">存在"整合—采用滞后"：工具不会自动生效，靠清晰计划、经理赋能与可复用系统弥合。</span></div>
 </div>
-</div>
-</div>
-<div class="sec">
-<h2><span class="tag tag-e">E</span> 新趋势 / 新动向 / 新应用 / 迅速走红的 AI Skills</h2>
-<div class="grid">
-<div class="card">
-<div class="ct">GitHub W28 热榜：19 个项目周增约 7 万星，几乎全服务 Agent</div>
-<div class="cp">本周热点：meetily（本地隐私会议助手，Rust+Whisper，周 +8.6k）、system_prompts_leaks（57k）、OfficeCLI（AI 读写 Office，+6.5k）、orca（并行代理编排）、herdr（终端代理多路复用）、codex-plugin-cc（OpenAI 官方，在 Claude Code 里调 Codex）、alibaba/page-agent（住在网页里的 GUI Agent）。<span class="src">掘金 Github 周刊</span> <span class="src-date">2026-07</span> <a href="https://juejin.cn/post/7661160061001089064" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">Skills 成"工程资产"：可安装、可复用、可审计</div>
-<div class="cp">silenceper 观察：Understand-Anything（代码库转知识图谱）、superpowers（给 Agent 装开发方法论）、ECC（技能+记忆+hook+安全扫描的 harness）、stop-slop（去 AI 腔）、taste-skill（前端审美）同时上榜——竞争已从"模型能否答"转向"工作方法能否被团队安装、复用、验证、共享"。<span class="src">silenceper</span> <span class="src-date">2026-05-27</span> <a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering/" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">"同事.skill"破圈：5 天 7.3k 星、10 天破万</div>
-<div class="cp">上海 AI 实验室工程师周天奕开源"同事.skill"：喂入离职同事的聊天记录/文档/邮件即生成能模仿其工作习惯的数字分身，SKILL.md 双层架构。随后衍生"前任/老板/导师/永生.skill"甚至"反蒸馏.skill"，从极客圈直破小红书、微博，被称"2026 年 4 月最离谱的开源狂欢"。<span class="src">CSDN</span> <span class="src-date">2026-04</span> <a href="https://blog.csdn.net/weixin_40040017/article/details/160181172" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">Agent 延伸到"个人事务工作流"</div>
-<div class="cp">MadsLorentzen/ai-job-search 单周 +13195 星——本地跑的 AI 求职流水线，评估 JD、定制简历、写求职信、备面试全本地执行；HKUDS/Vibe-Trading（个人交易 Agent）、bradautomates/claude-video（让 AI"看"视频）同期走红，Agent 正从"写代码"延伸到处理具体个人事务。<span class="src">SegmentFault</span> <span class="src-date">2026-07</span> <a href="https://segmentfault.com/a/1190000048030868" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">Token 成本战 + Agent 安全沙箱并行走红</div>
-<div class="cp">caveman 让 30+ 编码助手用"穴居人风格"回话省 65% token；OmniRoute 聚合 231+ 提供商、每月约 16 亿免费 token；腾讯云 CubeSandbox（毫秒级启动、硬件级隔离、兼容 E2B）为 Agent 提供安全代码执行——降本与"管得住"同步成为主线。<span class="src">掘金 / 头条</span> <span class="src-date">2026</span> <a href="https://www.toutiao.com/article/7660383168494584363" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">代码知识图谱成 Agent 基础设施</div>
-<div class="cp">Graphify-Labs/graphify（87k 星）把任意代码/文档转成可查询知识图谱的 Agent Skill；理念是"Agent 改系统前先要一张系统地图"，且知识图谱可随 commit 更新，成为长期上下文——比易漂移的文档更适合喂给 Agent。<span class="src">SegmentFault</span> <span class="src-date">2026</span> <a href="https://segmentfault.com/a/1190000048030868" target="_blank">查看</a></div>
-</div>
-</div>
-</div>
-<div class="sec">
-<h2><span class="tag tag-f">F</span> 对普通行业与普通人的启发与警示</h2>
-<div class="grid">
-<div class="card">
-<div class="ct">启发 1：先重设计流程，再谈工具</div>
-<div class="cp">微软"前沿工作者"（16%）产出全新工作的比率近乎翻倍（80% vs 58%），差别不在用哪个工具，而在是否先想清"哪些任务交 AI、哪些留给人"。Gallup 仅 12% 员工认为 AI 已根本改变工作方式——多数还停在旧流程提速。<span class="src">Microsoft WorkLab</span> <span class="src-date">2026-06-17</span> <a href="https://www.microsoft.com/en-us/worklab/work-trend-index/agents-human-agency-and-the-opportunity-for-every-organization" target="_blank">查看</a></div>
-<div class="adv">建议：选一个你最花时间的流程，先画"人机分工图"再引入 AI，而不是把 AI 硬塞进旧动作。</div>
-</div>
-<div class="card">
-<div class="ct">启发 2：新手更该趁早上车（AI 是均衡器）</div>
-<div class="cp">NNG：新手用 AI 受益是老手的 2.4 倍，客服新手 +34%、代码产出 +126%、写作 +59%。日常 AI 抬的是"能力地板"——让初级者做出接近资深者的产出。<span class="src">Saner.ai / NNG</span> <span class="src-date">2026</span> <a href="https://www.saner.ai/blogs/ai-at-work-statistics" target="_blank">查看</a></div>
-<div class="adv">建议：越是入行不久越要建立每日 AI 习惯；挑一件枯燥任务坚持 20-30 次真实尝试再下结论。</div>
-</div>
-<div class="card">
-<div class="ct">启发 3：把"角色 SOP"打包成可复用技能</div>
-<div class="cp">Anthropic knowledge-work-plugins 已覆盖销售/客服/产品/市场/法务/财务/数据；claude-skills 收录 355 个生产级技能。领域方法论正被版本化、可安装——普通人也能把自己的重复流程沉淀成"技能"。<span class="src">silenceper / 掘金</span> <span class="src-date">2026-05-27</span> <a href="https://silenceper.com/en/article/2026-05-27-github-trending-agent-skills-engineering/" target="_blank">查看</a></div>
-<div class="adv">建议：把你做得最多的一类任务写成一份可复用 SKILL/清单，从"卖时间"转向"卖系统"。</div>
-</div>
 <div class="card">
 <div class="ct">警示 1：AI 未必让你更快，尤其在你最擅长处</div>
 <div class="cp">METR 随机对照实验：熟练开源开发者在真实任务上用 AI 反而慢 19%，且与他们自己的预测相反；NBER：89% 高管称过去三年 AI 对劳动生产率"无可衡量影响"。盲目"全流程上 AI"可能得不偿失。<span class="src">Saner.ai / METR / NBER</span> <span class="src-date">2026</span> <a href="https://www.saner.ai/blogs/ai-at-work-statistics" target="_blank">查看</a></div>
 <div class="adv">建议：分清"该交给 AI"与"自己更快"的任务；在陌生领域用 AI，在核心专长上保持人工判断。</div>
 </div>
 <div class="card">
-<div class="ct">警示 2：只有 5% 的试点真正带来 P&amp;L 影响</div>
+<div class="ct">警示 2：只有 5% 的试点真正带来 P&L 影响</div>
 <div class="cp">MIT NANDA：多数企业 AI 工具无法保留反馈、学习上下文，停在试点期，仅 5% 达成可衡量的损益影响；德勤：仅 25% 企业把超 40% 的实验转为生产。工具买得多≠价值落得下。<span class="src">Saner.ai / MIT NANDA</span> <span class="src-date">2026</span> <a href="https://www.saner.ai/blogs/ai-at-work-statistics" target="_blank">查看</a></div>
 <div class="adv">建议：先挑 1-2 个能端到端打穿、可衡量损益的场景，验证价值后再扩展，而非全面铺开。</div>
 </div>
@@ -315,55 +345,6 @@ a:hover{text-decoration:underline}
 </div>
 </div>
 </div>
-<div class="sec">
-<h2><span class="sec-tag tag-vert">V</span> 垂直领域 AI 动向（SaaS · 财税）</h2>
-<div class="sub-head"><span class="sec-tag tag-saas">V1</span><h3>SaaS 领域：AI-native 重构软件范式</h3></div>
-<div class="grid">
-<div class="card">
-<div class="ct">"SaaS 末日"：头六周约 2 万亿美元市值蒸发</div>
-<div class="cp">institutepm：2026 年 1-2 月约 2 万亿美元软件市值蒸发，催化剂是 agent 能端到端跑完多步业务流；Forrester 报告《我们所知的 SaaS 已死》，软件 ETF（IGV）跌 22%，SaaS 首次相对标普折价交易。存活者三特征：确定性正确、深数据护城河、监管复杂度。<span class="src">Institute PM</span> <span class="src-date">2026-02</span> <a href="https://www.institutepm.com/knowledge-hub/ai-agents-saas-disruption-strategy" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">坐席制定价崩塌：转向用量/成果计费</div>
-<div class="cp">ThriveStack：纯坐席制降至 15%（去年 21%），41% 转混合、61% 用量计费；Salesforce Agentforce 按动作、Intercom Fin 按"每解决一次对话"$0.99（已解 4000 万次，解决率 66%）、Zendesk $1.50/工单。核心原则："若 AI 失败，客户不付费"。<span class="src">ThriveStack / PaperOffice</span> <span class="src-date">2026</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">MCP 成新集成层：软件开始"买"软件</div>
-<div class="cp">MCP 首年即达约 9700 万月 SDK 下载、5800+ 服务器、28% 财富 500 已纳入 AI 栈，5 个月增长 80 倍；涌现 ToolOracle（按结果付费）、x402/USDC 微支付等市场，agent 无需 API Key/订阅即可按次自动调用工具——"Agent 主导增长"（ALG）成新 GTM。<span class="src">ThriveStack</span> <span class="src-date">2026</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">Agent-first 设计与"服务即软件"经济学</div>
-<div class="cp">agentmarketcap：agent-first 产品毛利 50-60%（低于传统 80-90%），因交付的是"自动化"而非"增强"；50-70% 目标流程成本下降。新挑战"成果流失"（agent 自动完成目标后用户以"低使用"退订）；&gt;$250/月的高价产品 GRR 达 70%，成留存过滤器。<span class="src">Agent Market Cap</span> <span class="src-date">2026-04-09</span> <a href="https://agentmarketcap.ai/blog/2026/04/09/agent-first-startup-playbook-2026" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">AI 超新星：人均营收 10-20 倍碾压传统 SaaS</div>
-<div class="cp">Lovable 45 人 8 天做到 100 万 ARR、12 个月 2 亿 ARR，人均 440 万美元；Cursor &lt;50 人人均 330 万；传统 SaaS 人均约 20 万。新增长律"6-10 倍 YoY"取代 T2D3；94% B2B 买家在选型中用 LLM、77% 直接买"AI 推荐的首选"。<span class="src">ThriveStack</span> <span class="src-date">2026-01-15</span> <a href="https://www.thrivestack.ai/research/saasapocalypse?assess=true" target="_blank">查看</a></div>
-</div>
-</div>
-<div class="sub-head"><span class="sec-tag tag-fin">V2</span><h3>财税垂直领域：从"数字员工"到"数字组织"</h3></div>
-<div class="grid">
-<div class="card">
-<div class="ct">垂域财税大模型 + 工程化体系："犀友"准确率 93.56%</div>
-<div class="cp">税友 6 月 11 日发布 Agentic 2.0，自研垂域大模型"犀友"依托 200 亿条财税私有数据、百万级财务指令、300 万张票据标注训练，结合记忆体系/规则路由/链路追踪，综合业务准确率 93.56%，破解通用大模型"幻觉频发、稳定性差"通病；Harness 工程体系做知识供给与链路治理。<span class="src">税友股份官网</span> <span class="src-date">2026-06-11</span> <a href="https://www.servyou.com.cn/News/Index/1027506178235055/Detail/1027512451183847/2912577837030424" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">A2A 多智能体协同：从数字员工到数字组织</div>
-<div class="cp">Agentic 2.0 首创 A2A 协同架构，构建基础账/合规账/经营账三层递进服务，单客户年客单价从 50 元升至 1500 元以上（约 30 倍），推动行业从百亿工具市场迈向千亿综合服务市场；跳出单点工具思维，形成 7×24 小时虚拟财税服务单元。<span class="src">国际金融报</span> <span class="src-date">2026-06</span> <a href="https://www.ifnews.com/news.html?aid=841938&amp;cid=43" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">票账税档全流程自动化：释放 50%+ 重复人力</div>
-<div class="cp">数智工场系列已服务 4000 余家财税机构、46.75 万中小企业，累计处理发票超 192 万张，可释放机构 50% 以上重复性人力，实现票、账、税、档全流程自动化；财税处理效率达传统 10 倍、准确率超 90%、人力成本降约 60%。<span class="src">同花顺 / 税友</span> <span class="src-date">2026</span> <a href="https://news.10jqka.com.cn/field/sr/19700101/58575927.shtml" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">金税四期 / 以数治税：合规成刚需，"三浪叠加"</div>
-<div class="cp">全国注册企业超 6600 万家、中小微超 5500 万家，至少 70% 把基础财税外包给代账机构；金税四期落地后合规风控成刚需。宏观承压 + 监管趋严 + AI 生产力革命"三浪叠加"，推动行业从基础代账走向高价值顾问服务。<span class="src">国际金融报</span> <span class="src-date">2026-06-11</span> <a href="https://new.qq.com/rain/a/20260611A09CL500?refer=cp_1009" target="_blank">查看</a></div>
-</div>
-<div class="card">
-<div class="ct">AIBM 战略与联营云：续费率 75.8%，路径清晰</div>
-<div class="cp">税友 AIBM 路径：2025 AI 营收占比超 20% → 2026 突破 50% → 2027 建成全域 AI 原生生态 → 2030 打造千亿数智财税生态。联营云已服务超 2.38 万户、平均续费率 75.8%、利润率同比 +15%；企业会员/合规账/经营账新赛道测算超 300 亿元市场。<span class="src">发现报告 / 税友</span> <span class="src-date">2026</span> <a href="https://www.fxbaogao.com/detail/5485196" target="_blank">查看</a></div>
-</div>
-</div>
-</div>
 <section class="sec sec-comm">
   <h2><span class="sec-tag tag-comm">社区</span> 社区热门讨论 <span class="dim-count">近 24h</span></h2>
   <p class="sec-note">GitHub / 掘金 / Reddit 直连官方·开放端点并带原生热度（★星 / 👁阅读 / ▲分）；小红书由浏览器进社区抓取真实帖子（❤赞）；Twitter 由 WebSearch 聚合（热度未知）。</p>
@@ -400,7 +381,7 @@ a:hover{text-decoration:underline}
         <span class="src">掘金 · AI 热榜</span>
       </div>
       <div class="card">
-        <h4><a href="https://juejin.cn/post/7629213925721145379" target="_blank">面试官问我：“AI 写代码比你快 100 倍，你的价值在哪？”</a></h4>
+        <h4><a href="https://juejin.cn/post/7629213925721145379" target="_blank">面试官问我："AI 写代码比你快 100 倍，你的价值在哪？"</a></h4>
         <p class="cp">👁 4.1万 · ⭐ 483 · 💬 130</p>
         <span class="src">掘金 · AI 热榜</span>
       </div>
