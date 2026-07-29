@@ -1,0 +1,27 @@
+name: daily-briefing-watchdog
+
+# AI 趋势雷达看门狗：每天 09:30 北京时间（01:30 UTC）检查 daily/index.html 今天（北京日期）是否更新过。
+# 失败时 GitHub 会自动向仓库所有者发送 workflow 失败邮件——警报通道与生成任务本身完全解耦。
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  check-freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check daily/index.html freshness
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LAST=$(gh api "repos/${{ github.repository }}/commits?path=daily/index.html&per_page=1" --jq '.[0].commit.committer.date')
+          echo "last commit of daily/index.html: $LAST"
+          LAST_BJ=$(TZ=Asia/Shanghai date -d "$LAST" +%F)
+          TODAY_BJ=$(TZ=Asia/Shanghai date +%F)
+          echo "last commit (Beijing): $LAST_BJ / today (Beijing): $TODAY_BJ"
+          if [ "$LAST_BJ" != "$TODAY_BJ" ]; then
+            echo "::error::AI 趋势雷达今日（北京时间 $TODAY_BJ）尚未更新——生成流水线可能中途失败，请检查 WorkBuddy 自动化。"
+            exit 1
+          fi
+          echo "OK: briefing is fresh for today."
