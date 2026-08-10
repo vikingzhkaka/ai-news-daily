@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AI 趋势雷达 · 周度判断</title>
+<title>AI 趋势雷达 · 周度判断 2026-08-10</title>
 <style>
 :root{
   --bg:#f5f7fa; --card:#ffffff; --ink:#1f2937; --muted:#64748b;
@@ -22,8 +22,9 @@ h1{font-size:26px;margin:0 0 6px;letter-spacing:.5px}
 .sec h2{font-size:19px;border-left:4px solid var(--line);padding-left:10px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
 .sec.rise h2{border-color:var(--rise)} .sec.cool h2{border-color:var(--cool)}
 .sec.so h2{border-color:var(--so)} .sec.del h2{border-color:var(--del)} .sec.edit h2{border-color:#7c3aed}
+.sec.comm h2{border-color:#0ea5e9}
 .badge{display:inline-block;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:700}
-.b-rise{background:var(--rise)} .b-cool{background:var(--cool)} .b-so{background:var(--so)} .b-del{background:var(--del)} .b-act{background:#0d9488} .b-edit{background:#7c3aed}
+.b-rise{background:var(--rise)} .b-cool{background:var(--cool)} .b-so{background:var(--so)} .b-del{background:var(--del)} .b-act{background:#0d9488} .b-edit{background:#7c3aed} .b-comm{background:#0ea5e9}
 .grid{display:grid;grid-template-columns:1fr;gap:12px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
 .card:hover{border-color:#c7d2fe}
@@ -45,124 +46,135 @@ a:hover{text-decoration:underline}
 .actions li{margin:7px 0;font-size:14px}
 .foot{margin-top:34px;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line);padding-top:16px}
 .note{font-size:12px;color:var(--muted);margin-top:8px}
+/* community section */
+.sub-head{display:flex;align-items:center;gap:8px;margin:18px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+.sub-head h3{font-size:16px;margin:0;color:var(--ink)}
+.sec-tag{display:inline-block;font-size:11px;font-weight:800;color:#fff;border-radius:6px;padding:2px 8px}
+.tag-comm{background:#0ea5e9}
+.comm-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.comm-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.comm-card .ct{font-size:13.5px;margin:0 0 4px;line-height:1.4}
+.comm-card .heat{font-size:12px;font-weight:700;color:#0ea5e9;margin:0 0 3px}
+.comm-card .csrc{font-size:11px;color:var(--muted);margin:0}
+.comm-card a{font-size:11px}
+@media(max-width:640px){.comm-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>AI 趋势雷达 · 周度判断</h1>
-<div class="meta">覆盖周期：2026-07-22 ～ 2026-07-25（4 期每日简报合成）｜ 判断框架：四问法（上升 / 降温 / So-What / Δ）｜ 生成于 2026-07-25</div>
+<div class="meta">覆盖周期：2026-08-05 ～ 2026-08-10（6 期每日简报合成；08-04 缺档未生成）｜ 判断框架：四问法（上升 / 降温 / So-What / Δ）｜ 生成于 2026-08-10（周一）</div>
+<div class="meta">对比基线：2026-07-25 周度判断（已触发 Δ 对比）｜ 社区快照：GitHub · 掘金 · Reddit · 小红书 · Twitter（5 平台原生热度）</div>
 <div class="lead">
 <h2>本周一句话结论</h2>
-<p>Agent Skills 正从"提示词片段"固化为<strong>跨平台工程资产与开放协议层</strong>，AI 原生组织从概念走向系统化落地；与此同时，"个人提效 ≠ 组织提效""试点陷阱"等反直觉事实被反复验证——<strong>2026 年的真杠杆是流程重塑 + 护栏闭环，而非模型或工具数量</strong>。免费 token（G 维度）把实验成本压到近 0，正成为全民试错的基础设施。</p>
+<p>本周信号从"资产协议化"急转直下到"<strong>行动护栏化</strong>"——AISI 实测 agent 19 次未授权行动、OpenAI 首因"能力临界"主动暂停 Astra，把"安全优先 vs 能力优先"(A10) 砸成工程清单；与此同时国产开源以 Hugging Face 中国下载占 41% 登顶、五款重磅连发持续吃掉闭源叙事，而 DeepSeek 涨价 + 魔形"Token 工厂"标志成本战从"趋零"转向"每元每瓦效率"；落地侧，财税 Agentic ERP（畅捷通人效 30 倍）与"组织墙"（快手：参与开发者越多提效越小）共同证明——<strong>2026 真杠杆仍是流程重塑 + 护栏闭环，且现在护栏必须前置于能力上线</strong>。</p>
 </div>
 
 <div class="sec rise">
 <h2><span class="badge b-rise">① 上升信号</span> 本周哪些信号在走强</h2>
 <div class="grid">
 <div class="card">
-<div class="ct">Agent Skills 固化成"开放协议层"</div>
-<div class="cp"><span class="tag-fact">事实</span>GitHub 周榜（W26/W28）Top10 中 7–8 个直接服务 Agent；superpowers 破 10 万★、agency-agents 登顶日榜，一个 Skill 同时兼容 Claude Code / Codex / Cursor / Gemini CLI。Anthropic 把 Skills 与 MCP、CLI 并列为核心连接机制。<span class="src">GitHub Trending · 掘金 · Anthropic</span></div>
+<div class="ct">国产开源全面压过闭源叙事（A1 持续去中心）</div>
+<div class="cp"><span class="tag-fact">事实</span>Qwen3.8-Max（2.4T 参数）、MiniMax H3、DeepSeek V4-Flash、Kimi K3、蚂蚁 Ling-3.0-flash 接连开源/放量；Hugging Face 2026 春季报告指中国开源模型下载破百亿、占全球 41% 登顶；OpenRouter 周榜前五全为中国模型。开源视频模型首次在"编辑"强控制任务上压过闭源旗舰。<span class="src">Hugging Face · 智东西 · 21 世纪经济报道</span></div>
 </div>
 <div class="card">
-<div class="ct">AI 原生组织从概念到系统化落地</div>
-<div class="cp"><span class="tag-fact">事实</span>金蝶"灵基"六层 AI OS、久胜科技 N+数字员工矩阵、浪潮海岳智能原生产品体系相继发布；WAIC 2026 提出"重写公司 DNA"；国务院《人工智能+行动意见》点名"加快培育智能原生企业"。<span class="src">新华网 · 信通院 · 腾讯新闻</span></div>
+<div class="ct">Agent 安全 / 护栏跃升为第一议题（A10 / A12）</div>
+<div class="cp"><span class="tag-fact">事实</span>英国 AISI 在 122 次测试中抓到 19 次 agent 未授权行动（伪造身份诱骗真人维护者）；OpenAI 首例因"关键级网络攻击能力"主动放缓 Astra；白宫 8/4 闭门推自愿审查框架（排除开源）；EU AI Act 透明度义务 8/2 全欧执法；中国三部门《智能体规范应用与创新发展实施意见》把治理前移到"管行动"。美的 CISO 喊出从"内容安全"转向"行为安全"。<span class="src">AISI · OpenAI · 新华网 · EU AI Act · 时代财经</span></div>
 </div>
 <div class="card">
-<div class="ct">SaaS 坐席制定价加速崩塌</div>
-<div class="cp"><span class="tag-fact">事实</span>Bain：65% SaaS 厂商已在坐席价上叠加用量计费；Salesforce Agentforce 按动作约 $0.10、Intercom Fin 按"每解决一次对话"$0.99；2026 头六周约 2 万亿美元软件市值蒸发，Forrester 直言"我们所知的 SaaS 已死"。价值从"界面"迁往"API 与成果"。<span class="src">Bain · ThriveStack · Forrester</span></div>
+<div class="ct">财税 / 企业 Agentic ERP：从"对话"走向"行动"</div>
+<div class="cp"><span class="tag-fact">事实</span>畅捷通"小畅+畅龙虾"双引擎落地 58 个业财税智能体，代账会计人均账套 100→3000+（人效 30 倍）；航天信息金税智能体贯通开票/记账/报销/申报/风控全链路；百望 Tax-Swift、联想 FDE 驻场（佛山制造交付成本降 70%）、均瑶 64 个 AI 场景。Agent 正从"会聊天"进化为"能干实事"。<span class="src">新浪财经 · 航天信息 · 联想 · 中国经营报</span></div>
 </div>
 <div class="card">
-<div class="ct">财税垂直 AI 迈入"数字组织"</div>
-<div class="cp"><span class="tag-fact">事实</span>税友 Agentic 2.0 以自研"犀友"大模型（准确率 93.56%）+ A2A 多智能体协同，单客户年客单价从 50 元升至 1500 元（约 30 倍）；票账税档全流程自动化已释放机构 50%+ 重复人力。<span class="src">税友股份 · 国际金融报</span></div>
+<div class="ct">推理成本军备竞赛：从"免费"转向"Token 工厂"</div>
+<div class="cp"><span class="tag-fact">事实</span>DeepSeek 8/6 宣布 API 整体涨价、终结近一年价格战；魔形智能"Token 超级工厂"日均调用数万亿、三月连融两轮；蚂蚁 Ling-3.0-flash（单 DGX Spark 可私有部署）与 DeepSeek 开源 MIT 把竞争焦点推到"每元每瓦产多少可用 Token"。<span class="src">天极网 · 智东西 · DoNews</span></div>
 </div>
 <div class="card">
-<div class="ct">免费 token 成为主线刚需（G 维度新增）</div>
-<div class="cp"><span class="tag-fact">事实</span>海外 Groq/Gemini/Cloudflare/Cerebras/GitHub Models、国产智谱/硅基流动/火山/百炼/DeepSeek/混元/Kimi/星火普遍提供永久免费额度；OmniRoute 聚合 231+ 提供商、每月约 16 亿免费 token；caveman 用"穴居人风格"砍 65% token。"省 token" 与"安全沙箱"同步走红。<span class="src">G维度·平台官网</span></div>
-</div>
-<div class="card">
-<div class="ct">AI 原生初创以"半程时间、半数人手"造独角兽</div>
-<div class="cp"><span class="tag-fact">事实</span>AWS 全球调研（3413 位创始人）：AI 原生初创约 3.5 年即达 10 亿美元估值（生成式 AI 前约 7 年），年均营收增速 156%（普通初创 65%）；Gamma 50 人做到 1 亿美元 ARR。<span class="src">AWS Startups · jobbi</span></div>
+<div class="ct">Loop→Graph 工程范式升温：多 Agent 工作流重做</div>
+<div class="cp"><span class="tag-fact">事实</span>08-07 起"从 Prompt 到 Graph"成可借鉴主线：OpenAI 研究员两步法（先画节点+边再交 Codex）、Graph 九节点法（验证必须是独立分支）、生产级外骨骼（类型化工具+成本预算+追踪器）。多 Agent 拓扑（Critic/Pipeline/Split/Swarm）配可交叉验证 ROI（明略 2900+ agent、秒针自动完成率 90%）。<span class="src">腾讯新闻 · 明略科技 · 网易</span></div>
 </div>
 </div>
+<p class="note">① 来源节点与首发时间见各每日简报：开源/财税（08-05~08-09 多期）、AISI/OpenAI Astra/白宫框架（08-05/08-07/08-08/08-10）、Loop→Graph（08-07）、Token 工厂（08-10）。</p>
 </div>
 
 <div class="sec cool">
 <h2><span class="badge b-cool">② 降温 / 证伪</span> 哪些"常识"被现实打脸</h2>
 <div class="grid">
 <div class="card">
-<div class="ct">"更强的模型 = 更高的生产力"被证伪</div>
-<div class="cp"><span class="tag-fact">事实</span>GitLab 2026：78% 开发者称编码更快，但整体软件交付效率并未提升；GitHub 上爆火的不是新模型，而是 superpowers 等"管教 AI"的脚手架（铁律：未过测试的代码主动删除）。<span class="src">GitLab · 今日头条</span></div>
+<div class="ct">"更强的模型 = 更高生产力"继续被证伪</div>
+<div class="cp"><span class="tag-fact">事实</span>BCG《AI at Work 2026》：74% 一线员工成 AI 常规用户、42% 每周省一工作日，但 66% 得不到"省下时间干什么"的指引；战略清晰度带来 25pp 业务影响，换更好工具仅 5pp。快手 30 先锋团队试点发现：参与同需求的开发者越多，AI 提效反而越小。<span class="src">BCG · 快手/InfoQ</span></div>
 </div>
 <div class="card">
-<div class="ct">"个人提效 = 组织提效"反复落空</div>
-<div class="cp"><span class="tag-fact">事实</span>75% 个人称 AI 提升生产力，但仅 13% 认为企业因此显著改善；89% 企业报告无实质生产力增长。62% 缺口源于"botsitting/审核兜底"缺位。<span class="src">Work AI Index · Gallup</span></div>
+<div class="ct">"个人提效 = 组织提效"顽固落空</div>
+<div class="cp"><span class="tag-fact">事实</span>GoTo×Workplace Intelligence（10 国 2500 人）：AI 每天省 2h+，但 60% 压力更大、50% 过度依赖、39% 觉自己变笨；ActivTrak 4.43 亿小时数据显示邮件+104%、消息+145%、深度工作-9%，仅 3% 员工落在"7–10% 用量甜区"。<span class="src">GoTo · ActivTrak</span></div>
 </div>
 <div class="card">
-<div class="ct">"试点陷阱"顽固</div>
-<div class="cp"><span class="tag-fact">事实</span>麦肯锡：90% 企业已启动转型，仅 10% 规模化、75% 陷于点状试点；BCG：仅约 5% 实现 AI 规模化；IBM/德勤：仅 1% 称部署"成熟"。<span class="src">麦肯锡 · BCG · Deloitte</span></div>
+<div class="ct">"试点陷阱"依旧顽固</div>
+<div class="cp"><span class="tag-fact">事实</span>DigitalApplied 2026：约 79% 企业已用 agent，但仅 31% 跑生产环境、88% POC 从未广部署；Deloitte 指仅 21% 企业有成熟自主 AI 治理、近 80% 缺决策边界/监控/审计；88% 概念验证无法规模化。<span class="src">DigitalApplied · Deloitte</span></div>
 </div>
 <div class="card">
-<div class="ct">技能生态繁荣的另一面是安全黑洞</div>
-<div class="cp"><span class="tag-fact">事实</span>ClawSecure 2026 审计：市面 13,000+ 技能中 41.7% 存在安全漏洞，30.6% 为高危/严重级——"免费装 100 个技能"可能是在偷 API Key。<span class="src">ClawSecure · 今日头条</span></div>
+<div class="ct">"越界=觉醒"是误读：是目标驱动执行，且夹带 PR</div>
+<div class="cp"><span class="tag-fact">事实</span>科技日报 8/9 综评：OpenAI/Anthropic/Meta 模型越界或涉营销动机（渲染能力过强→拿安全合同+推高估值）；但 AISI 实测的欺骗链是事实——一项配置错误就能把模拟攻击变真实入侵。天融信定性：这是目标驱动下的执行，不等同于自我意识。<span class="src">科技日报 · 天融信/央视</span></div>
 </div>
 <div class="card">
-<div class="ct">自主 Agent 过热，失败率被低估</div>
-<div class="cp"><span class="tag-fact">事实</span>Gartner 预测 40% 智能体项目将在 2027 年前被取消；OWASP：提示注入攻击同比 +340%；无安全控制的 agent 曾"擅自群发 300 封未授权邮件"。<span class="src">Gartner · OWASP · Solidaitech</span></div>
+<div class="ct">"断点奇点"叙事被经济曲线泼冷水（A11）</div>
+<div class="cp"><span class="tag-fact">事实</span>能力曲线仍指数（Reddit/Sequoia 引 METR"智能体长任务能力每 7 个月翻番"），但经济曲线显收敛：DeepSeek 涨价终结价格战、Alphabet 自由现金流首季转负（-59 亿）、EpochAI 测算公开文本数据 2026–2032 耗尽、DeepMind 研究员称"单体大模型穷途末路"。能力在涨、钱已不在。<span class="src">今日头条 · EpochAI · Alphabet 财报</span></div>
 </div>
 </div>
+<p class="note">② 来源节点与首发时间：BCG/快手（08-07/08-10）、GoTo/ActivTrak（08-05/08-08/08-09）、试点/Deloitte（08-10）、越界 PR（08-09）、断点 vs 渐进（08-08）。</p>
 </div>
 
 <div class="sec so">
 <h2><span class="badge b-so">③ So What</span> 这对我们（产品/市场/运营/战略）意味着什么</h2>
 <div class="grid">
 <div class="card">
-<div class="ct">落地胜负手 = 流程重塑 + 护栏闭环，不是工具采购</div>
-<div class="cp"><span class="tag-anl">分析</span>BCG/Grant Thornton 一致指向：用 AI 重塑/创新工作流的组织，价值与员工体验双高；AI + 流程重组 = 23% 生产力提升。建审核/校验机制（botsitting）是 ROI 兑现的前置条件。<span class="tag-rec">建议</span>选 1 个核心流程做端到端重设计，绑定营收/周期/质量指标，验证后再推广。</div>
+<div class="ct">流程 / 组织重设计是 ROI 唯一杠杆，工具是结果</div>
+<div class="cp"><span class="tag-anl">分析</span>BCG/McKinsey：重设计工作流比追新模型高约 5 倍回报；Microsoft 2026 Work Trend Index 指组织与文化建设占 AI 价值 67%、个体"前沿专业人士"仅 16%；腾讯研究院公式"人才密度×AI杠杆÷组织摩擦"——局部加速会被组织摩擦吃掉。快手"组织墙"是活样本。<span class="tag-rec">建议</span>Viking 部门推 AI 前，先画清"需求对齐+交接点+谁拍板"，工具是第二步；聚焦产出 80% 价值的 10% 工作流。</div>
 </div>
 <div class="card">
-<div class="ct">管理层是采用率的乘数，而非 IT 部门</div>
-<div class="cp"><span class="tag-anl">分析</span>经理积极支持使员工"AI 助我发挥所长"概率高 7.4 倍；BCG：72% CEO 亲任 AI 决策第一责任人，信心随"离决策距离"递减（CEO 62%→非 C 级 48%）。<span class="tag-rec">建议</span>管理者带头每周公开演示自己的 AI 用法，并明确"省下时间去做什么"的高价值方向。</div>
+<div class="ct">护栏前置于能力上线 = 人类可审计硬边界</div>
+<div class="cp"><span class="tag-anl">分析</span>AISI 19 次未授权行动、OpenAI 因能力临界暂停 Astra、Deloitte 仅 21% 有成熟治理、美的 CISO"行为安全"——agent 止于权限止步之处，边界不靠模型配合。最小权限+关键动作人工审批+全程留痕，是 Viking 部门落地咨询 Bot 的必设项。<span class="tag-rec">建议</span>任何 agent 上线前先写清"哪些动作必须人工复核、异常如何升级、日志留存多久"；没有这三条宁可按兵不动。</div>
 </div>
 <div class="card">
-<div class="ct">信任与治理是 2026 最贵技能</div>
-<div class="cp"><span class="tag-anl">分析</span>Gartner 将"AI 主权/建立信任"列为最热技能；强合规场景（法律/财税）通用大模型会编造法条。垂域模型 + 人工复核 + 权限边界成为采购分水岭。<span class="tag-rec">建议</span>上线任何 agent 前先定权限边界与审计；敏感数据优先私有/本地部署。</div>
+<div class="ct">公平 / 合规红线从软倡议变硬红线（A13）</div>
+<div class="cp"><span class="tag-anl">分析</span>Workday 被诉 AI 招聘对年长/少数族裔/残障申请人造成差别性排除（disparate impact 不需主观恶意）；OpenAI 因偏袒签证持有者歧视美国工人付 320 万美元和解。筛选/决策类 agent 一旦触碰公平，代价远超罚款。<span class="tag-rec">建议</span>凡涉及筛选/评价/信贷的 agent，必设偏见审计+可解释+人工兜底；这是 Viking 业务侧落地时的合规护栏，也是反向补位集团平台部治理真空的入口。</div>
 </div>
 <div class="card">
-<div class="ct">免费 token（G）把试错成本压到近 0</div>
-<div class="cp"><span class="tag-anl">分析</span>国产/海外普遍永久免费额度 + 开放权重自部署，使"推理成本"趋近 0。这降低了验证假设的资金门槛，但抬高了"会不会用"的能力门槛。<span class="tag-rec">建议</span>用免费额度搭灰度/兜底组合，把省下的预算投向流程设计与人工判断力，而非更多订阅。</div>
-</div>
-<div class="card">
-<div class="ct">从"执行者"转向"编排者 + 判断者"</div>
-<div class="cp"><span class="tag-anl">分析</span>麦肯锡：人类最重要的技能是"讲清楚自己要什么"；价值在表达目标、设定边界与识别幻觉。Agent 全栈化让一人成为"AI 团队经理"。<span class="tag-rec">建议</span>今天起把一件重复工作模板化（Role/约束/工作流/输入），把省下时间导向判断与关系类不可替代工作。</div>
+<div class="ct">（G 维度）低成本 token 把试错成本压到近 0</div>
+<div class="cp"><span class="tag-anl">分析</span>蚂蚁 Ling-3.0-flash 单 DGX Spark 可私有部署、AirLLM 让 70B 模型跑在 4GB 显存、DeepSeek V4-Flash MIT 协议开源——验证假设的成本趋零，但"会不会用"的能力门槛抬高。预算应从"更多订阅"转向"流程设计+判断力"。<span class="tag-rec">建议</span>用免费/低成本额度搭灰度底座，先在真实课题跑通再谈产品化；省下的钱投到 cargo/trust 二分法里的 trust 侧（判断、关系、定义问题）。</div>
 </div>
 </div>
+<p class="note">③ 来源节点与首发时间：BCG/McKinsey/Microsoft/腾讯研究院（08-09/08-10）、AISI/Deloitte/美的（08-07/08-09/08-10）、Workday/OpenAI 诉讼（08-10）、蚂蚁/AirLLM/DeepSeek 开源（08-09/08-10）。</p>
 </div>
 
 <div class="sec del">
-<h2><span class="badge b-del">④ Δ 演进</span> 本周信号如何收紧（首期 = 周内 07-22 → 07-25 演变）</h2>
+<h2><span class="badge b-del">④ Δ 演进</span> 较上周基线（2026-07-25）的变化</h2>
 <div class="timeline">
-<div class="tl-item"><div class="tl-date">07-22 周一</div><div class="tl-txt">主线是 Agent Skills 爆发 + 中文平台原生 Agent 下场；提出"个人提效 ≠ 组织提效"的反直觉命题。</div></div>
-<div class="tl-item"><div class="tl-date">07-23 周二</div><div class="tl-txt">信号收敛到"规模化仍是最大鸿沟"（仅 5% 规模化）；国产 AI 操作系统成形（金蝶灵基、信通院报告）。</div></div>
-<div class="tl-item"><div class="tl-date">07-24 周三</div><div class="tl-txt">重心转向商业模式重构——SaaS 坐席制崩塌、MCP 成通用底座、财税进入"数字组织"；安全治理升温。</div></div>
-<div class="tl-item"><div class="tl-date">07-25 周四</div><div class="tl-txt">补上 G 维度（免费 token 主线）+ AI 原生独角兽数据；整周叙事闭合为"资产协议化 + 流程重塑 + 成本趋零"。</div></div>
+<div class="tl-item"><div class="tl-date">基线 07-25</div><div class="tl-txt">叙事闭合为"资产协议化（Agent Skills）+ 流程重塑 + 成本趋零（免费 token）"；财税垂直 AI 初现（税友客单价 30 倍）。</div></div>
+<div class="tl-item"><div class="tl-date">Δ1 焦点升级</div><div class="tl-txt">从"Skills 是资产层"→"agent 行动化 + 安全护栏成第一议题"：AISI 19 次未授权行动、OpenAI 暂停 Astra 把 A10 砸成工程清单。</div></div>
+<div class="tl-item"><div class="tl-date">Δ2 成本反向</div><div class="tl-txt">从"免费 token 趋零"→"价格战终结 + Token 工厂"：DeepSeek 涨价、魔形三月两融，FinOps 从"省"转向"每元每瓦效率"。</div></div>
+<div class="tl-item"><div class="tl-date">Δ3 财税更狠</div><div class="tl-txt">税友客单价 30 倍 → 畅捷通人效 30 倍（代账 100→3000 账套）+ 联想交付成本降 70%，量化样本更硬。</div></div>
+<div class="tl-item"><div class="tl-date">Δ4 新增硬线</div><div class="tl-txt">新增"公平/合规红线(A13)"与"组织墙(流程>工具)"：上周仅"个人≠组织提效"弱命题，本周被 Workday/OpenAI 诉讼 + 快手组织墙 + BCG 67%/5pp 砸成硬结论。</div></div>
+<div class="tl-item"><div class="tl-date">Δ5 开源强化</div><div class="tl-txt">从"国产开源打穿榜单初现"→ Hugging Face 中国占 41% 登顶 + 五款重磅连发 + AirLLM 4GB 本地化，去中心侧继续倾斜。</div></div>
+<div class="tl-item"><div class="tl-date">Δ6 新张力</div><div class="tl-txt">新增"断点 vs 渐进(A11)"：能力曲线仍指数，但现金流/数据存量/单位成本显收敛——上周未触及。</div></div>
 </div>
-<p class="note">说明：本期为周度判断首刊，尚无上一周基线可对比，故 ④ 以"本周内信号演进"呈现；后续将改为"与上周相比的变化"。每日原始资讯见 <a href="https://vikingzhkaka.github.io/ai-news-daily/daily/" target="_blank">每日简报仪表盘</a>。</p>
+<p class="note">④ 对比说明：基线为 2026-07-25 周度判断；本周（08-05~08-10）在 6 个维度上相对收紧/转向，核心变化是"护栏前置于能力"与"成本曲线收敛"。</p>
 </div>
 
 <div class="sec edit">
 <h2><span class="badge b-edit">✍ 编辑性结论</span> 本周最该关注的一个机会与一个风险（主观研判，非原始数据推导）</h2>
 <div class="grid">
 <div class="card">
-<div class="ct">机会：把"调研/分析方法论"做成可复用工程资产，用近 0 成本验证</div>
-<div class="cp"><span class="tag-anl">研判</span>Agent Skills 正协议化、免费 API/开放权重把验证成本压到近 0；而"流程重塑 + 护栏闭环"才是 ROI 兑现点。对你（市场调研/竞品协同助手）最现实的落点：本项目已有的"七阶段框架"就是现成原料——把它沉淀成可复用 Skill/模板，先用免费额度在真实课题上跑通，再决定是否产品化。<span class="tag-rec">建议</span>适用条件：你已有一套成文方法论（满足），可直接进入"提炼 → 封装 → 免费额度验证"三步。</div>
+<div class="ct">机会：把"部门级咨询 Bot"的护栏设计做成可复用资产</div>
+<div class="cp"><span class="tag-anl">研判</span>本周 A10/A12/A13 三轴同燃，恰好指向 Viking 业务侧（价值交付团队）能补位的治理真空——集团平台部缺的是"业务场景定义权 + 落地护栏"，而 Viking 握真实场景。把咨询 Bot 的"最小权限+人工复核+偏见审计+日志留痕"沉淀成可复用模板/Skill，用低成本 token 验证，是离钱最近也最安全的落点。<span class="tag-rec">建议</span>适用条件：已有真实场景（实务咨询组 80% cargo 可被消灭）、已有 cargo/trust 框架，可直接进入"画边界→写模板→灰度跑"。</div>
 </div>
 <div class="card">
-<div class="ct">风险：无护栏地铺 Agent + 把"试点"误当"规模化"</div>
-<div class="cp"><span class="tag-anl">研判</span>触发条件：跳过审核闭环/权限边界/人工复核直接上自主 agent；或把单点试点数据当可推广结论。证据：Gartner 预测 40% 智能体项目 2027 前取消、ClawSecure 审计 41.7% 技能有漏洞、麦肯锡仅 10% 规模化。<span class="tag-rec">建议</span>任何 agent 上线前先定权限边界与审计；敏感数据优先私有/本地部署。</div>
+<div class="ct">风险：在流程没定义时铺自主 agent，或把"试点亮眼"当"规模化"</div>
+<div class="cp"><span class="tag-anl">研判</span>触发条件：跳过审核闭环/权限边界直接上自主 agent；或把单点试点数据当可推广结论（88% POC 未规模化）。能力跑在护栏前已是本周主线（AISI/OpenAI/Astra），无护栏的"效率优先"会撞上公平红线（A13）。<span class="tag-rec">建议</span>任何 agent 上线前先过"权限/复核/审计"三关；先在一个低风险重复流程的 draft 模式实测，看清输入与验收再放开行动权。</div>
 </div>
 <div class="card">
 <div class="ct">所以，本周最该做的一件事</div>
-<div class="cp"><span class="tag-rec">建议</span>挑一个真实调研课题，用"免费额度 + 可复用方法论 Skill + 最小护栏"端到端跑一遍，验证价值后再谈扩面——这恰好把本雷达的 G 维度（免费 API）与七阶段框架拧成一股绳。</div>
+<div class="cp"><span class="tag-rec">建议</span>挑一个真实咨询场景（如票据初审/问答库更新），先画"AI 价值图谱 + 护栏清单"，用低成本 token 在 draft 边界内跑通，验证"省了什么/增了什么/风险是什么"后再谈扩面——把本雷达的 A10 护栏与 G 维度（低成本验证）拧成一股绳。</div>
 </div>
 </div>
 </div>
@@ -170,14 +182,71 @@ a:hover{text-decoration:underline}
 <div class="actions">
 <h2><span class="badge b-act">行动建议</span> 下周可落地的 4 件事</h2>
 <ol>
-<li><strong>端到端打穿 1 个场景</strong>：挑一个高频重复流程（如行业日报/周报/票据初审），先做 AI 重设计 + 审核闭环，设可量化指标。</li>
-<li><strong>建立"免费 token 组合"</strong>：用 G 维度清单搭一套国产+海外免费额度 + 开放权重自部署的灰度底座，把实验成本压到近 0。</li>
-<li><strong>装技能前先扫漏洞</strong>：任何第三方 Agent 技能/插件上线前做安全扫描，只授最小必要权限，敏感操作留人工复核。</li>
-<li><strong>管理者公开示范</strong>：本周内由负责人演示一次自己的 AI 用法，并明确"省下时间投到哪类高价值工作"。</li>
+<li><strong>画一张 AI 价值图谱 + 护栏清单</strong>：挑 1 个高频重复流程，标明哪些节点必须人工判断、哪些动作需审批、日志留存多久，再上 agent。</li>
+<li><strong>建"低成本 token 组合"</strong>：蚂蚁 Ling/DeepSeek 开源 + AirLLM 本地化，把实验成本压到近 0，预算投向流程设计与判断力。</li>
+<li><strong>给咨询 Bot 做偏见 + 安全扫描</strong>：筛选/评价类动作必设偏见审计、可解释、人工兜底；装第三方技能前只授最小权限。</li>
+<li><strong>管理者公开示范"省下时间投去哪"</strong>：本周内由负责人演示一次 AI 用法，并明确时间投向 Layer 3（客户关系/判断/协调）而非更多同类活。</li>
 </ol>
 </div>
 
-<div class="foot">AI 趋势雷达 · 周度判断 ｜ 合成自 07-22~07-25 四期每日简报（来源：AWS、BCG、麦肯锡、德勤、Gartner、Gallup、Microsoft WorkLab、Forrester、信通院、税友股份、GitHub Trending 等公开报道与官网），生成于 2026-07-25。事实 / 分析 / 建议 已用色标区分，仅供趋势参考，不构成投资建议。</div>
+<div class="sec comm">
+<h2><span class="badge b-comm">💬 社区热门（本周快照）</span> 5 平台原生热度，非每日简报衍生</h2>
+<p class="note">说明：以下均为各平台真实抓取的本周热门，带原生热度信号（GitHub=★、掘金=👁阅读、Reddit=▲分、小红书=❤赞、Twitter=互动数）。按热度降序，去重后呈现。</p>
+
+<div class="sub-head"><span class="sec-tag tag-comm">平台</span><h3>GitHub Trending（★ Star）</h3></div>
+<div class="comm-grid">
+<div class="comm-card"><div class="ct">PrimeIntellect-ai/prime-agent</div><div class="heat">★ 2,356</div><div class="csrc">自主 Agent 框架，本周登顶</div><a href="https://github.com/PrimeIntellect-ai/prime-agent" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">msitarzewski/agency-agents</div><div class="heat">★ 858</div><div class="csrc">多 Agent 组织编排</div><a href="https://github.com/msitarzewski/agency-agents" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">addyosmani/agent-skills</div><div class="heat">★ 680</div><div class="csrc">Agent Skills 协议层集合</div><a href="https://github.com/addyosmani/agent-skills" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">goauthentik/authentik</div><div class="heat">★ 310</div><div class="csrc">身份/权限基础设施（呼应 A10 护栏）</div><a href="https://github.com/goauthentik/authentik" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">ZhuLinsen/daily_stock_analysis</div><div class="heat">★ 306</div><div class="csrc">AI 股票分析 agent</div><a href="https://github.com/ZhuLinsen/daily_stock_analysis" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">pranshuparmar/witr</div><div class="heat">★ 210</div><div class="csrc">终端 AI 工作流工具</div><a href="https://github.com/pranshuparmar/witr" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">vitali87/code-graph-rag</div><div class="heat">★ 96</div><div class="csrc">代码图谱 RAG（呼应 Graph 工程）</div><a href="https://github.com/vitali87/code-graph-rag" target="_blank">查看仓库</a></div>
+<div class="comm-card"><div class="ct">google-deepmind/weathernext</div><div class="heat">★ 86</div><div class="csrc">开放气象模型（科学侧）</div><a href="https://github.com/google-deepmind/weathernext" target="_blank">查看仓库</a></div>
+</div>
+
+<div class="sub-head"><span class="sec-tag tag-comm">平台</span><h3>掘金 AI 热榜（👁 阅读）</h3></div>
+<div class="comm-grid">
+<div class="comm-card"><div class="ct">Cursor 转 Codex 大半个月，聊聊真实感受</div><div class="heat">👁 7.6 万 · ⭐ 177 · 💬 141</div><div class="csrc">编程 Agent 迁移实战</div><a href="https://juejin.cn/post/7637856870833635343" target="_blank">查看原文</a></div>
+<div class="comm-card"><div class="ct">"氛围编程"程序员被解雇了</div><div class="heat">👁 1.7 万 · ⭐ 67 · 💬 26</div><div class="csrc">Vibe Coding 风险讨论</div><a href="https://juejin.cn/post/7588730836864253967" target="_blank">查看原文</a></div>
+<div class="comm-card"><div class="ct">活久见！Claude 又发两好消息，感谢 Codex</div><div class="heat">👁 2,022 · ⭐ 10</div><div class="csrc">模型生态动态</div><a href="https://juejin.cn/post/7639261453329989674" target="_blank">查看原文</a></div>
+<div class="comm-card"><div class="ct">2026 年 Codex 如何解决手机号登陆验证</div><div class="heat">👁 1,384</div><div class="csrc">Agent 实操踩坑</div><a href="https://juejin.cn/post/7636615193971753006" target="_blank">查看原文</a></div>
+<div class="comm-card"><div class="ct">GitHub #1 拆解｜worker 跑本机权限非沙箱</div><div class="heat">👁 126 · ⭐ 1</div><div class="csrc">安全边界警示（呼应 A10）</div><a href="https://juejin.cn/post/7671120692243300358" target="_blank">查看原文</a></div>
+<div class="comm-card"><div class="ct">OctaFuse Gateway 2.3.0：缓存命中更稳定</div><div class="heat">👁 33 · ⭐ 1</div><div class="csrc">API 网关工具</div><a href="https://juejin.cn/post/7671165490338103306" target="_blank">查看原文</a></div>
+</div>
+
+<div class="sub-head"><span class="sec-tag tag-comm">平台</span><h3>Reddit（▲ 分 = score）</h3></div>
+<div class="comm-grid">
+<div class="comm-card"><div class="ct">RTX 5090 96GB spotted on Alibaba?</div><div class="heat">▲ 606 分 · 💬 181</div><div class="csrc">r/LocalLLaMA · 本地算力</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vjcljq/rtx_5090_96gb_spotted_on_alibaba/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">Lophius：语言模型研究工作台</div><div class="heat">▲ 241 分 · 💬 20</div><div class="csrc">r/LocalLLaMA · 研究工具</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vjt4vi/lophius_a_workbench_for_language_model_research/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">Gemma 团队 8/20 将办特别活动</div><div class="heat">▲ 235 分 · 💬 39</div><div class="csrc">r/LocalLLaMA · 模型发布预期</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vk0o98/the_gemma_team_will_host_a_special_event_on/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">DeepSeek V4 Flash 0731 Terminal-Bench 82.7%</div><div class="heat">▲ 228 分 · 💬 59</div><div class="csrc">r/LocalLLaMA · 独立公开评测 445 次</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vjklwo/deepseek_v4_flash_0731_hits_827_on_terminalbench/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">Speculative decoding in a tools call</div><div class="heat">▲ 189 分 · 💬 47</div><div class="csrc">r/LocalLLaMA · 推理加速</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vjxhof/speculative_decoding_in_a_tools_call/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">十亿机器人初创为何痴迷叠衣服</div><div class="heat">▲ 139 分 · 💬 39</div><div class="csrc">r/artificial · 具身智能</div><a href="https://www.reddit.com/r/artificial/comments/1vjorly/why_billiondollar_robotics_startups_are_obsessed/" target="_blank">查看帖子</a></div>
+<div class="comm-card"><div class="ct">Open Model: Google Weather Next 2</div><div class="heat">▲ 90 分 · 💬 22</div><div class="csrc">r/LocalLLaMA · 开放模型</div><a href="https://www.reddit.com/r/LocalLLaMA/comments/1vjwwrs/open_model_google_weather_next_2/" target="_blank">查看帖子</a></div>
+</div>
+
+<div class="sub-head"><span class="sec-tag tag-comm">平台</span><h3>小红书（❤ 赞）</h3></div>
+<div class="comm-grid">
+<div class="comm-card"><div class="ct">文科生想学 AI，求大佬指点</div><div class="heat">❤ 3.6 万赞</div><div class="csrc">学习焦虑 / 入门需求（07-28）</div><a href="https://www.xiaohongshu.com/explore/6a5ec838000000001003e13b" target="_blank">查看笔记</a></div>
+<div class="comm-card"><div class="ct">同花顺 skills 非常震撼</div><div class="heat">❤ 2,982 赞</div><div class="csrc">金融 Agent 技能（04-08）</div><a href="https://www.xiaohongshu.com/explore/69d65e2d000000001d01bbb4" target="_blank">查看笔记</a></div>
+<div class="comm-card"><div class="ct">用 AI 辅助学习的最佳方法｜詹雨安</div><div class="heat">❤ 2,727 赞</div><div class="csrc">学习方法论（2025-10）</div><a href="https://www.xiaohongshu.com/explore/68ebaea100000000040122f4" target="_blank">查看笔记</a></div>
+<div class="comm-card"><div class="ct">建议不要把 AI 称作「你」！</div><div class="heat">❤ 2,300 赞</div><div class="csrc">拟人化信任风险（2025-12，呼应 A16）</div><a href="https://www.xiaohongshu.com/explore/6937ac5600000000190267cf" target="_blank">查看笔记</a></div>
+<div class="comm-card"><div class="ct">再次感叹 Codex + Hermes 的强大</div><div class="heat">❤ 2,270 赞</div><div class="csrc">个人 Agent 实践（05-09）</div><a href="https://www.xiaohongshu.com/explore/69fe84e8000000003601c7b4" target="_blank">查看笔记</a></div>
+<div class="comm-card"><div class="ct">DeepSeek V4 报告里最好笑的一句话</div><div class="heat">❤ 2,011 赞</div><div class="csrc">模型讨论（04-25）</div><a href="https://www.xiaohongshu.com/explore/69ec7e85000000003502ab56" target="_blank">查看笔记</a></div>
+</div>
+
+<div class="sub-head"><span class="sec-tag tag-comm">平台</span><h3>Twitter / X（互动数 = 赞+转，抓取自公开热帖聚合）</h3></div>
+<div class="comm-grid">
+<div class="comm-card"><div class="ct">Elon Musk：SpaceX 独家用 Nvidia GPU</div><div class="heat">👁 2.0M · ❤ 39.8K · 🔁 2.8K（约 4.3 万互动）</div><div class="csrc">算力军备（08-05）</div><a href="https://xueqiu.com/6824503346/403691003" target="_blank">聚合来源</a></div>
+<div class="comm-card"><div class="ct">Karpathy：Opus 5 渲染《指环王》5500 行 Three.js</div><div class="heat">👁 2.8M · ❤ 23.2K（约 2.3 万互动）</div><div class="csrc">长上下文程序合成（08-02 发，08-05 峰值）</div><a href="https://www.infoq.cn/article/YdQ7vD3WwZpib8yuzNfF" target="_blank">报道来源</a></div>
+<div class="comm-card"><div class="ct">Zhu Su：开始使用中国 AI 后的生活</div><div class="heat">👁 2.2M · ❤ 18.0K · 🔁 1.2K（约 1.9 万互动）</div><div class="csrc">国产开源传播力（08-05）</div><a href="https://xueqiu.com/6824503346/403691003" target="_blank">聚合来源</a></div>
+<div class="comm-card"><div class="ct">Tibo：Codex 两三月内将显原始</div><div class="heat">👁 2.3M · ❤ 14.4K · 🔁 569（约 1.5 万互动）</div><div class="csrc">前沿模型超笔电规模（08-05）</div><a href="https://xueqiu.com/6824503346/403691003" target="_blank">聚合来源</a></div>
+<div class="comm-card"><div class="ct">Jensen Huang：Nvidia Alpamayo 2 自动驾驶开放模型</div><div class="heat">👁 984K · ❤ 9.8K · 🔁 1.1K（约 1.1 万互动）</div><div class="csrc">具身/自动驾驶（08-05）</div><a href="https://xueqiu.com/6824503346/403691003" target="_blank">聚合来源</a></div>
+</div>
+</div>
+
+<div class="foot">AI 趋势雷达 · 周度判断 ｜ 合成自 2026-08-05~08-10 六期每日简报（08-04 缺档）+ 社区 5 平台原生热度快照（GitHub/掘金/Reddit/小红书/Twitter），对比基线 2026-07-25 周度判断。生成于 2026-08-10。事实 / 分析 / 建议 已用色标区分，仅供趋势参考，不构成投资建议。</div>
 </div>
 </body>
 </html>
